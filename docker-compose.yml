@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+        cloud_provider:
+                build:
+                        context: .
+                        dockerfile: CloudProvider_Dockerfile
+                image: cloud_provider
+                hostname: cloud_provider
+                networks:
+                        coprotect_network:
+                                ipv4_address: 172.25.0.2
+        company:
+                build:
+                        context: .
+                        dockerfile: DiffPrivServer_Dockerfile
+                image: company
+                hostname: company
+                depends_on:
+                        - cloud_provider
+                networks:
+                        coprotect_network:
+                                ipv4_address: 172.25.0.3
+        client:
+                build:
+                        context: .
+                        dockerfile: DiffPrivClient_Dockerfile
+                image: client
+                hostname: client
+                depends_on:
+                        - company
+                ports:
+                        - 5002:5002
+                networks:
+                        coprotect_network:
+                                ipv4_address: 172.25.0.4
+
+networks:
+        coprotect_network:
+                driver: bridge
+                ipam:
+                        config:
+                                - subnet: 172.25.0.0/16
