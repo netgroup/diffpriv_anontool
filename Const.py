@@ -9,7 +9,7 @@ FILE = 'file'
 EPSILON = 'epsilon'
 ID = 'id'
 
-CSV_LIST = 'csv_list.csv'
+CSV_FILES_PATH = './csv_files/'
 USERS = 'users.csv'
 LOG = 'log.txt'
 
@@ -18,7 +18,8 @@ OK = '200'
 BAD_REQ = '400'
 NO_METHOD = '405'
 ERROR = 'ERROR'
-FILE_EXIST = '[WARNING] File already exists!'
+NO_NUMERIC = '[WARNING] In csv file there are no numeric columns!'
+FILE_EXIST = '[WARNING] File already uploaded!'
 NO_BUDGET = '[WARNING] This user has not enough remaining budget!'
 
 # BUDGET

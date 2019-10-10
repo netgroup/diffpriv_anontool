@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
 
 import Const
-import csv
 import os.path
+import pandas as pd
 from pyparsing import Word, alphas
 
 
@@ -50,22 +50,27 @@ class Switcher(object):
         return 'two'
 
 
-#
-def isNumerical(file):
+# Check if col contains only numbers
+def isNumeric(col):
+    return pd.to_numeric(col, errors='coerce').notnull().all()
 
-    pass
+
+# Check if file has at least a numeric column
+def hasNumericalColumns(file):
+    data = pd.read_csv(file, header=0)
+    for column in data.columns:
+        if isNumeric(data[column]) is True:
+            return True
+    return False
 
 
 # If file entry does not exist, add it to list of csv files
-def addFileToList(fileName, epsilon):
-    isNumerical(fileName)
-    if os.path.exists('./' + Const.CSV_LIST):
-        with open(Const.CSV_LIST, 'r') as fin:
-            filesList = [line.split(',')[0] for line in fin]  # Create a list of already existing files
-            if fileName in filesList:
-                return Const.FILE_EXIST
-    with open(Const.CSV_LIST, 'a') as fout:
-        fout.write(fileName + ',' + epsilon)
+def addFileToList(fileName):
+    if hasNumericalColumns(fileName) is False:
+        return Const.NO_NUMERIC
+    if os.path.exists(Const.CSV_FILES_PATH + fileName):
+        return Const.FILE_EXIST
+    fileName.save(Const.CSV_FILES_PATH + fileName)
     return Const.OK
 
 
@@ -83,23 +88,20 @@ def execQuery(query):
 
 
 # Check if user can execute the query
-def checkQuery(user, query):
+def checkQuery(user, query, epsilon):
     if os.path.exists('./' + Const.USERS):
-        fin = csv.reader(open('./' + Const.USERS))
-        lines = list(fin)
+        data = pd.read_csv('./' + Const.USERS, header=0)
         # Verify if user made previous queries and check its remaining budget
-        for line in lines:
-            elem = line.split(',')
-            if user is elem[0]:
-                # User has not enough remaining budget
-                if elem[1] < Const.QUERY_BUDGET:
-                    return Const.NO_BUDGET
-                # User has enough budget, then decrease it
-                lines[lines.index(line)][1] -= Const.QUERY_BUDGET
-                # Overwrite users list file
-                writer = csv.writer(open('./' + Const.USERS, 'w'))
-                writer.writerows(lines)
-                return execQuery(query)
+        if user in data.columns[Const.ID]:
+            row = data.loc[data[Const.ID].isin(user)]
+            # User has not enough remaining budget
+            if data[row][1] < Const.QUERY_BUDGET:
+                return Const.NO_BUDGET
+            # User has enough budget, then decrease it
+            data[row][1] -= Const.QUERY_BUDGET
+            # Overwrite users list file
+            data.to_csv(Const.USERS)
+            return execQuery(query)
         # User not found, then add a new one
         lines.append(user + ',' + (Const.STARTING_BUDGET - Const.QUERY_BUDGET))
         # Overwrite users list file
@@ -124,10 +126,8 @@ def index():
 def send_csv():
     if request.method is 'POST':
         # Get JSON data
-        content = request.get_json()
         fileName = request.files[Const.FILE+'[0]']
-        epsilon = content[Const.EPSILON]
-        return addFileToList(fileName, epsilon)
+        return addFileToList(fileName)
     else:
         return Const.NO_METHOD
 
@@ -139,7 +139,8 @@ def query():
         content = request.get_json()
         id = content[Const.ID]
         query = content[Const.QUERY]
-        return checkQuery(id, query)
+        epsilon = content[Const.EPSILON]
+        return checkQuery(id, query, epsilon)
     else:
         return Const.NO_METHOD
 
