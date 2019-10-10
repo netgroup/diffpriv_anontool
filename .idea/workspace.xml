@@ -1,15 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab172fe3-c966-442b-971a-02da6ebf97e7" name="Default Changelist" comment="" />
+    <list default="true" id="ab172fe3-c966-442b-971a-02da6ebf97e7" name="Default Changelist" comment="First commit">
+      <change afterPath="$PROJECT_DIR$/venv/bin/sqlformat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/DESCRIPTION.rst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/metadata.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing-2.4.2.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/pyparsing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/INSTALLER" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/METADATA" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/RECORD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/WHEEL" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/entry_points.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse-0.3.0.dist-info/top_level.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/__main__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/cli.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/compat.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/engine/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/engine/filter_stack.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/engine/grouping.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/engine/statement_splitter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/aligned_indent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/others.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/output.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/reindent.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/right_margin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/filters/tokens.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/formatter.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/keywords.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/lexer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/sql.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/tokens.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/lib/python2.7/site-packages/sqlparse/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Const.py" beforeDir="false" afterPath="$PROJECT_DIR$/Const.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiffPrivServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/DiffPrivServer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/local/bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/local/include" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/local/lib" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1RgcuX1AuceyVIPvUzCgiiUR9xJ" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -51,10 +101,31 @@
       <workItem from="1570529360791" duration="599000" />
       <workItem from="1570537758435" duration="9858000" />
       <workItem from="1570551824111" duration="2256000" />
+      <workItem from="1570609770589" duration="3506000" />
+      <workItem from="1570616810827" duration="1463000" />
+      <workItem from="1570622811172" duration="599000" />
+      <workItem from="1570710973708" duration="2061000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="First commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
   </component>
 </project>

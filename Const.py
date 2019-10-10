@@ -7,7 +7,6 @@ SEND_CSV = 'send_csv'
 QUERY = 'query'
 FILE = 'file'
 EPSILON = 'epsilon'
-PERMIT_COLS = 'permitted_columns'
 ID = 'id'
 
 CSV_LIST = 'csv_list.csv'

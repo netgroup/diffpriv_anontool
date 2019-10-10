@@ -3,24 +3,83 @@ from flask import Flask, render_template, request
 import Const
 import csv
 import os.path
+from pyparsing import Word, alphas
+
+
+# Class to choose operation to execute on data
+class Switcher(object):
+
+    def indirect(self, i):
+        method_name = str(i)
+        method = getattr(self, method_name, lambda: 'Invalid')
+        return method()
+
+    @staticmethod
+    def count(self, column):
+        print 'Executing count on col', column
+        return 'zero'
+
+    @staticmethod
+    def sum(self, column):
+        print 'Executing sum on col', column
+        return 'one'
+
+    @staticmethod
+    def avg(self, column):
+        print 'Executing mean on col', column
+        return 'two'
+
+    @staticmethod
+    def variance(self, column):
+        print 'Executing variance on col', column
+        return 'two'
+
+    @staticmethod
+    def std_dev(self, column):
+        print 'Executing std_dev on col', column
+        return 'two'
+
+    @staticmethod
+    def max(self, column):
+        print 'Executing max on col', column
+        return 'two'
+
+    @staticmethod
+    def min(self, column):
+        print 'Executing min on col', column
+        return 'two'
+
+
+#
+def isNumerical(file):
+
+    pass
 
 
 # If file entry does not exist, add it to list of csv files
-def addFileToList(fileName, epsilon, permitCols):
+def addFileToList(fileName, epsilon):
+    isNumerical(fileName)
     if os.path.exists('./' + Const.CSV_LIST):
         with open(Const.CSV_LIST, 'r') as fin:
             filesList = [line.split(',')[0] for line in fin]  # Create a list of already existing files
             if fileName in filesList:
                 return Const.FILE_EXIST
     with open(Const.CSV_LIST, 'a') as fout:
-        fout.write(fileName + ',' + epsilon + ',' + permitCols)
+        fout.write(fileName + ',' + epsilon)
     return Const.OK
 
 
 # Parse query and execute it
 def execQuery(query):
-
-    pass
+    print 'Parsing query', query
+    statement = Word(alphas)
+    operation = Word(alphas)
+    column = Word(alphas)
+    pattern = statement + operation + '(' + column + ')'
+    items = pattern.parseString(query)
+    print 'Parsing result:', items
+    result = Switcher.indirect(items[1])(items[2])
+    return result
 
 
 # Check if user can execute the query
@@ -68,8 +127,7 @@ def send_csv():
         content = request.get_json()
         fileName = request.files[Const.FILE+'[0]']
         epsilon = content[Const.EPSILON]
-        permitCols = content[Const.PERMIT_COLS]
-        return addFileToList(fileName, epsilon, permitCols.replace(',', '-'))
+        return addFileToList(fileName, epsilon)
     else:
         return Const.NO_METHOD
 
