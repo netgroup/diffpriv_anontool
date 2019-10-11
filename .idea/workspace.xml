@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab172fe3-c966-442b-971a-02da6ebf97e7" name="Default Changelist" comment="First commit">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Const.py" beforeDir="false" afterPath="$PROJECT_DIR$/Const.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DiffPrivServer.py" beforeDir="false" afterPath="$PROJECT_DIR$/DiffPrivServer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,8 +61,17 @@
       <workItem from="1570609770589" duration="3506000" />
       <workItem from="1570616810827" duration="1463000" />
       <workItem from="1570622811172" duration="599000" />
-      <workItem from="1570710973708" duration="8289000" />
+      <workItem from="1570710973708" duration="8676000" />
+      <workItem from="1570783486924" duration="254000" />
     </task>
+    <task id="LOCAL-00001" summary="First commit">
+      <created>1570724720646</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1570724720646</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
