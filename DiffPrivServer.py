@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 import Const
+import DiffPrivTools as dpt
 import os.path
 import pandas as pd
 from pyparsing import Word, alphas
@@ -38,49 +39,49 @@ def addFile(fileName):
 # FUNCTIONS TO HANDLE QUERY REQUEST
 
 # Compute an anonymous count of data
-def anon_count(data, epsilon):
-    print 'Executing count on col', column
-    return 'zero'
+def anon_count(data, epsilon, budget):
+    noisedResult = int(round(dpt.addNoise(result=data.size, budget=budget, sensitivity=1.0, epsilon=epsilon)))
+    return max(noisedResult, 0)
 
 
 # Compute an anonymous sum of data
-def anon_sum(data, epsilon):
+def anon_sum(data, epsilon, budget):
     print 'Executing sum on col', column
     return 'one'
 
 
 # Compute an anonymous mean of data
-def anon_mean(data, epsilon):
+def anon_mean(data, epsilon, budget):
     print 'Executing mean on col', column
     return 'two'
 
 
 # Compute an anonymous variance of data
-def anon_var(data, epsilon):
+def anon_var(data, epsilon, budget):
     print 'Executing variance on col', column
     return 'two'
 
 
 # Compute an anonymous standard deviation of data
-def anon_std_dev(data, epsilon):
+def anon_std_dev(data, epsilon, budget):
     print 'Executing std_dev on col', column
     return 'two'
 
 
 # Compute an anonymous max of data
-def anon_max(data, epsilon):
+def anon_max(data, epsilon, budget):
     print 'Executing max on col', column
     return 'two'
 
 
 # Compute an anonymous min of data
-def anon_min(data, epsilon):
+def anon_min(data, epsilon, budget):
     print 'Executing min on col', column
     return 'two'
 
 
 # Choose the proper function according to given operation string and execute it on the given data
-def execQueryOperation(operation, data, epsilon):
+def execQueryOperation(operation, data, epsilon, budget):
     switcher = {
         Const.COUNT: anon_count,
         Const.SUM: anon_sum,
@@ -93,11 +94,11 @@ def execQueryOperation(operation, data, epsilon):
     # Get the function from switcher dictionary
     func = switcher.get(operation, lambda: "Invalid month")
     # Execute the function
-    return func(data, epsilon)
+    return func(data, epsilon, budget)
 
 
 # Parse query and execute it
-def execQuery(file, query, epsilon):
+def execQuery(file, query, epsilon, budget):
     print 'Parsing query', query
     # Create query grammar
     statement = Word(alphas)
@@ -112,12 +113,13 @@ def execQuery(file, query, epsilon):
     data = fullData[items[2]]
     if isNumeric(data):
         # Execute query only if data is numeric
-        return execQueryOperation(items[1], data, epsilon)
+        return execQueryOperation(items[1], data, epsilon, budget)
     return Const.NO_NUMERIC_QUERY
 
 
 # Check if user can execute the query
 def checkQuery(user, file, query, epsilon):
+    budget = 0.0
     # Check if users list file exists
     if os.path.exists(Const.USERS):
         data = pd.read_csv(Const.USERS, header=0)
@@ -129,10 +131,12 @@ def checkQuery(user, file, query, epsilon):
                 return Const.NO_BUDGET
             # User has enough budget, then decrease it
             data[row][1] -= Const.QUERY_BUDGET
+            budget = data[row][1]
         else:
             # User not found, then add a new one
             df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [(Const.STARTING_BUDGET - Const.QUERY_BUDGET)]})
             data.append(df, ignore_index=True)
+            budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
         # Overwrite users list file
         data.to_csv(Const.USERS)
     else:
@@ -140,8 +144,9 @@ def checkQuery(user, file, query, epsilon):
         df = pd.DataFrame({Const.ID: [Const.ID, user],
                            Const.BUDGET: [Const.BUDGET, Const.STARTING_BUDGET - Const.QUERY_BUDGET]})
         df.to_csv(Const.USERS)
+        budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
     # Execute the query
-    return execQuery(file, query, epsilon)
+    return execQuery(file, query, epsilon, budget)
 
 
 ################# FLASK SERVER #################
