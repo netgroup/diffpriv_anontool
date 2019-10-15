@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 
 import Const
-import DiffPrivTools as dpt
+import DiffPrivUtils as dpt
 import os.path
 import pandas as pd
 from pyparsing import Word, alphas
@@ -41,6 +41,7 @@ def addFile(fileName):
 # Compute an anonymous count of data
 def anon_count(data, epsilon, budget):
     noisedResult = int(round(dpt.addNoise(result=data.size, budget=budget, sensitivity=1.0, epsilon=epsilon)))
+    print 'data size:', data.size, '\nnoisedResult:', noisedResult, '\nanon_count:', max(noisedResult, 0)
     return max(noisedResult, 0)
 
 
@@ -99,7 +100,7 @@ def execQueryOperation(operation, data, epsilon, budget):
 
 # Parse query and execute it
 def execQuery(file, query, epsilon, budget):
-    print 'Parsing query', query
+    print 'Parsing query:', query
     # Create query grammar
     statement = Word(alphas)
     operation = Word(alphas)
@@ -108,43 +109,50 @@ def execQuery(file, query, epsilon, budget):
     # Parse query string
     items = pattern.parseString(query)
     print 'Parsing result:', items
+    file = 'data.csv'
+    items[2] = 'age'
     # Extract data according the given column
     fullData = pd.read_csv(file, header=0)
     data = fullData[items[2]]
     if isNumeric(data):
         # Execute query only if data is numeric
-        return execQueryOperation(items[1], data, epsilon, budget)
+        return execQueryOperation(items[1], data.values, epsilon, budget)
     return Const.NO_NUMERIC_QUERY
 
 
 # Check if user can execute the query
 def checkQuery(user, file, query, epsilon):
-    budget = 0.0
     # Check if users list file exists
     if os.path.exists(Const.USERS):
         data = pd.read_csv(Const.USERS, header=0)
         # Verify if the given user made previous queries and check its remaining budget
-        if user in data.columns[Const.ID]:
-            row = data.loc[data[Const.ID].isin(user)]
+        if user in data[[Const.ID]].values:
+            row = data[data[Const.ID] == user].index.tolist()[0]
             # User has not enough remaining budget
-            if data[row][1] < Const.QUERY_BUDGET:
+            if data.iloc[row][1] < Const.QUERY_BUDGET:
+                print 'user has no budget'
                 return Const.NO_BUDGET
+            print 'user found with budget', data.iloc[row][1]
             # User has enough budget, then decrease it
-            data[row][1] -= Const.QUERY_BUDGET
-            budget = data[row][1]
+            data.iat[row, 1] -= Const.QUERY_BUDGET
+            budget = data.iloc[row][1]
+            print 'budget updated', budget
         else:
             # User not found, then add a new one
-            df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [(Const.STARTING_BUDGET - Const.QUERY_BUDGET)]})
-            data.append(df, ignore_index=True)
+            df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [(Const.STARTING_BUDGET - Const.QUERY_BUDGET)]},
+                              columns=[Const.ID, Const.BUDGET])
+            data = data.append(df, ignore_index=True)
             budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
+            print 'user not found, new with budget', budget
         # Overwrite users list file
-        data.to_csv(Const.USERS)
+        data.to_csv(Const.USERS, index=False)
     else:
         # File does not exist, create a new one
-        df = pd.DataFrame({Const.ID: [Const.ID, user],
-                           Const.BUDGET: [Const.BUDGET, Const.STARTING_BUDGET - Const.QUERY_BUDGET]})
-        df.to_csv(Const.USERS)
+        df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [Const.STARTING_BUDGET - Const.QUERY_BUDGET]},
+                          columns=[Const.ID, Const.BUDGET])
+        df.to_csv(Const.USERS, index=False)
         budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
+        print 'file not found, new file and user with budget', budget
     # Execute the query
     return execQuery(file, query, epsilon, budget)
 
@@ -153,9 +161,9 @@ def checkQuery(user, file, query, epsilon):
 app = Flask(__name__, root_path=Const.ROOT_PATH)  # Create a Flask WSGI application
 
 
-@app.route('/' + Const.INDEX, methods=[Const.GET])
+@app.route('/', methods=[Const.GET])
 def index():
-    if request.method is Const.GET:
+    if request.method == Const.GET:
         return render_template(Const.INDEX + '.html')
     else:
         return Const.NO_METHOD
@@ -163,7 +171,7 @@ def index():
 
 @app.route('/' + Const.SEND_CSV, methods=[Const.POST])
 def send_csv():
-    if request.method is Const.POST:
+    if request.method == Const.POST:
         # Get file from request content
         fileName = request.files[Const.FILE+'[0]']
         # Store file
@@ -174,13 +182,13 @@ def send_csv():
 
 @app.route('/' + Const.QUERY, methods=[Const.POST])
 def send_query():
-    if request.method is Const.POST:
+    if request.method == Const.POST:
         # Decrypt data received from Cloud Provider
         content = request.get_json()
         user_id = content[Const.ID]
         file = content[Const.FILE]
         query = content[Const.QUERY]
-        epsilon = content[Const.EPSILON]
+        epsilon = float(content[Const.EPSILON])
         return checkQuery(user_id, file, query, epsilon)
     else:
         return Const.NO_METHOD

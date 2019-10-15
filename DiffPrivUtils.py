@@ -60,6 +60,6 @@ def addNoise(result, budget, sensitivity, epsilon):
     noise = laplace.sample(1.0/budget)
     noisedResult = clamp(lowerBound(), upperBound(), result) + noise
     nearestPower = nextPowerOfTwo(laplace.diversity / budget)
-    remainder = 0.0 if nearestPower is 0.0 else Decimal(noisedResult) % Decimal(nearestPower)
+    remainder = 0.0 if nearestPower is 0.0 else float(Decimal(noisedResult) % Decimal(nearestPower))
     roundedResult = noisedResult - remainder
     return clamp(lowerBound(), upperBound(), roundedResult)
