@@ -99,7 +99,7 @@ def execQueryOperation(operation, data, epsilon, budget):
 
 
 # Parse query and execute it
-def execQuery(file, query, epsilon, budget):
+def execQuery(file, query, epsilon, budget, limit=0):
     print 'Parsing query:', query
     # Create query grammar
     statement = Word(alphas)
@@ -115,6 +115,8 @@ def execQuery(file, query, epsilon, budget):
     fullData = pd.read_csv(file, header=0)
     data = fullData[items[2]]
     if isNumeric(data):
+        # Select data greater than limit
+        data = data[data.iloc[:] >= limit]
         # Execute query only if data is numeric
         return execQueryOperation(items[1], data.values, epsilon, budget)
     return Const.NO_NUMERIC_QUERY

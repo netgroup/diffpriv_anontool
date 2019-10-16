@@ -18,10 +18,10 @@ class Laplace:
     def sample(self, scale):
         u1 = np.random.uniform()
         u2 = np.random.uniform()
-        try:
-            return math.log(u1 / u2) * (scale * self.diversity)
-        except ValueError:
+        value = math.log(u1 / u2) * (scale * self.diversity)
+        if value == float('-inf') or value == float('inf'):
             return 0.0
+        return value
 
 
 kClampFactor = 2 ** 39
