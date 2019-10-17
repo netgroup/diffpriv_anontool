@@ -1,11 +1,11 @@
 # ADDRESS
-#SERVER_ADDR = '172.25.0.2'
-SERVER_ADDR = 'localhost'
+SERVER_ADDR = '172.25.0.2'
+#SERVER_ADDR = 'localhost'
 SERVER_PORT = '5002'
 
 # ROUTES AND FIELDS
-#ROOT_PATH = '/app/web'
-ROOT_PATH = './'
+ROOT_PATH = '/diffpriv/web'
+#ROOT_PATH = './'
 GET = 'GET'
 POST = 'POST'
 INDEX = 'index'
