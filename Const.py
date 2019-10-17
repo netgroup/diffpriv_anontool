@@ -37,6 +37,7 @@ NO_NUMERIC = '[ERROR] In csv file there are no numeric columns!'
 FILE_EXIST = '[ERROR] File already uploaded!'
 NO_BUDGET = '[ERROR] This user has not enough remaining budget!'
 NO_NUMERIC_QUERY = '[ERROR] Given query is on non-numeric data!'
+INVALID_OPERATION = '[ERROR] Invalid operation!'
 
 # BUDGET
 STARTING_BUDGET = 1
