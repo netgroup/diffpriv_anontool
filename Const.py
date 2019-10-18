@@ -1,4 +1,5 @@
 # ADDRESS
+#SERVER_ADDR = '172.17.0.2'
 SERVER_ADDR = '172.25.0.2'
 #SERVER_ADDR = 'localhost'
 SERVER_PORT = '5002'
@@ -15,9 +16,13 @@ FILE = 'file'
 EPSILON = 'epsilon'
 ID = 'id'
 BUDGET = 'budget'
-CSV_FILES_PATH = './csv_files/'
-USERS = 'users.csv'
-LOG = 'log.txt'
+#CSV_FILES_PATH = './csv_files/'
+CSV_FILES_PATH = '/diffpriv/csv_files/'
+USERS_LIST_PATH = '/diffpriv/users/'
+USERS = 'users_list.csv'
+#LOG_FILES_PATH = './logs/'
+LOG_FILES_PATH = '/diffpriv/logs/'
+LOG = 'log'
 
 # QUERY FUNCTIONS
 COUNT = 'count'
@@ -42,3 +47,5 @@ INVALID_OPERATION = '[ERROR] Invalid operation!'
 # BUDGET
 STARTING_BUDGET = 1
 QUERY_BUDGET = .25
+
+INFINITY = 'inf'

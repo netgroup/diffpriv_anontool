@@ -8,7 +8,9 @@ services:
                 image: diff_priv_server
                 hostname: diff_priv_server
                 volumes:
-                  - ./csv_files/:/var/lib/docker/volumes/diff_priv_server
+                  - /var/lib/docker/volumes/diffpriv_server/csv_files/:/diffpriv/csv_files/
+                  - /var/lib/docker/volumes/diffpriv_server/logs/:/diffpriv/logs/
+                  - /var/lib/docker/volumes/diffpriv_server/users/:/diffpriv/users/
                 networks:
                         coprotect_network:
                                 ipv4_address: 172.25.0.2

@@ -8,45 +8,48 @@ import pandas as pd
 
 
 # Return actual time
-def getCurrentTime():
+def get_current_time():
     return "["+str(datetime.now())+"] "
 
 
 # Write message in log file
 def log(message):
-    with open(Const.LOG+".txt", 'a') as fout:
-        fout.write(message)
+    with open(Const.LOG_FILES_PATH + Const.LOG + datetime.today().strftime('%Y%m%d') + '.txt', 'a') as file_out:
+        file_out.write(message)
 
 
 # FUNCTIONS TO HANDLE CSV FILE REQUEST
 
 # Check if col contains only numbers
-def isNumeric(col):
+def is_numeric(col):
     return pd.to_numeric(col, errors='coerce').notnull().all()
 
 
 # Check if file has at least a numeric column
-def hasNumericColumns(file):
-    data = pd.read_csv(file, header=0)
+def has_numeric_columns(file_name):
+    data = pd.read_csv(file_name, header=0)
     for column in data.columns:
-        if isNumeric(data[column]) is True:
+        if is_numeric(data[column]):
             return True
     return False
 
 
 # If file does not exist, store it in csv files directory
-def addFile(fileName):
+def add_file(file_name):
+    f = str(file_name).split('\'')[1].split('\'')[0]
     # Check if given file already exists
-    if os.path.exists(Const.CSV_FILES_PATH + fileName):
-        log(getCurrentTime() + 'File already exists in directory ' + Const.CSV_FILES_PATH + ' and it can\'t be stored')
+    if os.path.exists(Const.CSV_FILES_PATH + f):
+        log(get_current_time() + 'File already exists in directory ' + Const.CSV_FILES_PATH +
+            ' and it can\'t be stored\n')
         return Const.FILE_EXIST
-    # Check if given file has numeric columns
-    if hasNumericColumns(fileName) is False:
-        log(getCurrentTime() + 'File has no numeric columns and it can\'t be stored')
-        return Const.NO_NUMERIC
     # Save file in csv files directory
-    fileName.save(Const.CSV_FILES_PATH + fileName)
-    log(getCurrentTime() + 'File stored in directory ' + Const.CSV_FILES_PATH)
+    file_name.save(Const.CSV_FILES_PATH + f)
+    # Check if given file has numeric columns
+    if not has_numeric_columns(Const.CSV_FILES_PATH + f):
+        os.remove(Const.CSV_FILES_PATH + f)
+        log(get_current_time() + 'File has no numeric columns and it can\'t be stored\n')
+        return Const.NO_NUMERIC
+    log(get_current_time() + 'File stored in directory ' + Const.CSV_FILES_PATH + '\n')
     return Const.OK
 
 
@@ -54,11 +57,10 @@ def addFile(fileName):
 
 # Compute an anonymous count of data
 def anon_count(data, epsilon, budget):
-    noisedResult = int(round(dpu.addNoise(result=data.size, budget=budget, sensitivity=1.0, epsilon=epsilon)))
-    log(getCurrentTime() + 'Executed anon_count with epsilon = ' + epsilon + ' and budget = ' + budget +
-        ', resulting in anon_count = ' + str(max(noisedResult, 0)) + ' where real count = ' + data.size)
-    print 'data size:', data.size, '\nnoisedResult:', noisedResult, '\nanon_count:', max(noisedResult, 0)
-    return max(noisedResult, 0)
+    noised_result = int(round(dpu.add_noise(result=data.size, budget=budget, sensitivity=1.0, epsilon=epsilon)))
+    log(get_current_time() + 'Executed anon_count with epsilon = ' + str(epsilon) + ' and budget = ' + str(budget) +
+        ', resulting in anon_count = ' + str(max(noised_result, 0)) + ' where real count = ' + str(data.size) + '\n')
+    return max(noised_result, 0)
 
 
 # Compute an anonymous sum of data
@@ -98,12 +100,12 @@ def anon_min(data, epsilon, budget):
 
 
 def error_operation(data, epsilon, budget):
-    log(getCurrentTime() + Const.INVALID_OPERATION)
+    log(get_current_time() + Const.INVALID_OPERATION + '\n')
     return Const.INVALID_OPERATION
 
 
 # Choose the proper function according to given operation string and execute it on the given data
-def execQueryOperation(operation, data, epsilon, budget):
+def exec_query_operation(operation, data, epsilon, budget):
     switcher = {
         Const.COUNT: anon_count,
         Const.SUM: anon_sum,
@@ -120,8 +122,7 @@ def execQueryOperation(operation, data, epsilon, budget):
 
 
 # Parse query and execute it
-def execQuery(file, query, epsilon, budget, limit=0):
-    print 'Parsing query:', query
+def exec_query(file_name, query, epsilon, budget, limit=0):
     # Create query grammar
     statement = Word(alphas)
     operation = Word(alphas)
@@ -130,63 +131,59 @@ def execQuery(file, query, epsilon, budget, limit=0):
     # Parse query string
     items = pattern.parseString(query)
     print 'Parsing result:', items
-    file = 'data.csv'
     items[2] = 'age'
     # Extract data according the given column
-    fullData = pd.read_csv(file, header=0)
-    data = fullData[items[2]]
-    if isNumeric(data):
+    full_data = pd.read_csv(Const.CSV_FILES_PATH + file_name, header=0)
+    data = full_data[items[2]]
+    if is_numeric(data):
         # Select data greater than limit
         data = data[data.iloc[:] >= limit]
         # Execute query only if data is numeric
-        return execQueryOperation(items[1], data.values, epsilon, budget)
-    log(getCurrentTime() + Const.NO_NUMERIC_QUERY)
+        return exec_query_operation(items[1], data.values, epsilon, budget)
+    log(get_current_time() + Const.NO_NUMERIC_QUERY + '\n')
     return Const.NO_NUMERIC_QUERY
 
 
 # Check if user can execute the query
-def checkQuery(user, file, query, epsilon):
+def check_query(user, file_name, query, epsilon):
     # Check if users list file exists
-    if os.path.exists(Const.USERS):
-        data = pd.read_csv(Const.USERS, header=0)
+    if os.path.exists(Const.USERS_LIST_PATH + Const.USERS):
+        data = pd.read_csv(Const.USERS_LIST_PATH + Const.USERS, header=0)
         # Verify if the given user made previous queries and check its remaining budget
         if user in data[[Const.ID]].values:
             row = data[data[Const.ID] == user].index.tolist()[0]
             # User has not enough remaining budget
             if data.iloc[row][1] < Const.QUERY_BUDGET:
-                log(getCurrentTime() + 'User ' + user + ' has not enough budget (' + data.iloc[row][1] +
-                    ') to compute query')
-                print 'user has not enough budget'
+                log(get_current_time() + 'User ' + user + ' has not enough budget (' + str(data.iloc[row][1]) +
+                    ') to compute query\n')
                 return Const.NO_BUDGET
-            log(getCurrentTime() + 'User ' + user + ' found with budget ' + data.iloc[row][1] +
-                ', enough to compute query')
-            print 'user found with budget', data.iloc[row][1]
+            log(get_current_time() + 'User ' + user + ' found with budget ' + str(data.iloc[row][1]) +
+                ', enough to compute query\n')
             # User has enough budget, then decrease it
-            data.iat[row, 1] -= Const.QUERY_BUDGET
             budget = data.iloc[row][1]
-            log(getCurrentTime() + 'User ' + user + ' budget updated to ' + budget)
-            print 'budget updated', budget
+            data.iat[row, 1] -= Const.QUERY_BUDGET
+            log(get_current_time() + 'User ' + user + ' budget updated to ' + str(data.iloc[row][1]) + '\n')
         else:
             # User not found, then add a new one
             df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [(Const.STARTING_BUDGET - Const.QUERY_BUDGET)]},
                               columns=[Const.ID, Const.BUDGET])
             data = data.append(df, ignore_index=True)
-            budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
-            log(getCurrentTime() + 'User ' + user + ' not found. Created a new one with budget ' + budget)
-            print 'user not found, new with budget', budget
+            budget = Const.STARTING_BUDGET
+            log(get_current_time() + 'User ' + user + ' not found. Created a new one with budget ' + str(budget) + '\n')
+            log(get_current_time() + 'User ' + user + ' budget updated to ' + str(budget - Const.QUERY_BUDGET) + '\n')
         # Overwrite users list file
-        data.to_csv(Const.USERS, index=False)
+        data.to_csv(Const.USERS_LIST_PATH + Const.USERS, index=False)
     else:
         # File does not exist, create a new one
         df = pd.DataFrame({Const.ID: [user], Const.BUDGET: [Const.STARTING_BUDGET - Const.QUERY_BUDGET]},
                           columns=[Const.ID, Const.BUDGET])
-        df.to_csv(Const.USERS, index=False)
-        budget = Const.STARTING_BUDGET - Const.QUERY_BUDGET
-        log(getCurrentTime() + 'File ' + Const.USERS + ' not found. Created a new one and added user ' + user +
-            ' with budget ' + budget)
-        print 'file not found, new file and user with budget', budget
+        df.to_csv(Const.USERS_LIST_PATH + Const.USERS, index=False)
+        budget = Const.STARTING_BUDGET
+        log(get_current_time() + 'File ' + Const.USERS_LIST_PATH + Const.USERS +
+            ' not found. Created a new one and added user ' + user + ' with budget ' + str(budget) + '\n')
+        log(get_current_time() + 'User ' + user + ' budget updated to ' + str(budget - Const.QUERY_BUDGET) + '\n')
     # Execute the query
-    return execQuery(file, query, epsilon, budget)
+    return exec_query(file_name, query, epsilon, budget)
 
 
 ################# FLASK SERVER #################
@@ -205,14 +202,14 @@ def index():
 def send_csv():
     if request.method == Const.POST:
         # Get file from request content
-        fileName = request.files[Const.FILE+'[0]']
-        log(getCurrentTime() + '[' + Const.SEND_CSV + ' ' + request.method + '] Received request to store csv file:' +
-            fileName)
+        file_name = request.files['file']
+        log(get_current_time() + '[' + Const.SEND_CSV + ' ' + request.method + '] Received request to store csv file:' +
+            str(file_name) + '\n')
         # Store file
-        return addFile(fileName)
+        return add_file(file_name), Const.OK
     else:
-        log(getCurrentTime() + '[' + Const.SEND_CSV + ' ' + request.method +
-            '] Received request with not allowed method')
+        log(get_current_time() + '[' + Const.SEND_CSV + ' ' + request.method +
+            '] Received request with not allowed method\n')
         return Const.NO_METHOD
 
 
@@ -222,16 +219,19 @@ def send_query():
         # Decrypt data received from Cloud Provider
         content = request.get_json()
         user_id = content[Const.ID]
-        file = content[Const.FILE]
+        file_name = content[Const.FILE]
         query = content[Const.QUERY]
         epsilon = float(content[Const.EPSILON])
-        log(getCurrentTime() + '[' + Const.QUERY + ' ' + request.method + '] Received from ' + user_id +
-            ' request for query:' + query + ' from ' + file + ' with epsilon = ' + epsilon)
-        return checkQuery(user_id, file, query, epsilon)
+        log(get_current_time() + '[' + Const.QUERY + ' ' + request.method + '] Received from ' + user_id +
+            ' request for query:' + query + ' from ' + file_name + ' with epsilon = ' + str(epsilon) + '\n')
+        return str(check_query(user_id, file_name, query, epsilon)), Const.OK
     else:
-        log(getCurrentTime() + '[' + Const.QUERY + ' ' + request.method + '] Received request with not allowed method')
+        log(get_current_time() + '[' + Const.QUERY + ' ' + request.method +
+            '] Received request with not allowed method\n')
         return Const.NO_METHOD
 
 
 if __name__ == '__main__':
+    #os.mkdir(Const.LOG_FILES_PATH)
+    #os.mkdir(Const.CSV_FILES_PATH)
     app.run(host=Const.SERVER_ADDR, port=Const.SERVER_PORT)

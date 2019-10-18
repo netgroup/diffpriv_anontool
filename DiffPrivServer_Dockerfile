@@ -5,7 +5,9 @@ RUN apt-get update && apt-get upgrade -y
 WORKDIR /diffpriv
 
 ADD . /diffpriv
-ADD ./data.csv /diffpriv/
+RUN mkdir /diffpriv/csv_files/
+RUN mkdir /diffpriv/logs/
+RUN mkdir /diffpriv/users/
 
 # Install all python dependencies
 RUN pip install -r requirements.txt
@@ -14,5 +16,5 @@ RUN pip install -r requirements.txt
 EXPOSE 5002
 
 # Run app.py when the container launches
-#CMD ["python", "DiffPrivServer.py"]
-CMD ["bash"]
+CMD ["python", "DiffPrivServer.py"]
+#CMD ["bash"]
