@@ -1,15 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab172fe3-c966-442b-971a-02da6ebf97e7" name="Default Changelist" comment="First commit">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="ab172fe3-c966-442b-971a-02da6ebf97e7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bazel-1.0.1-installer-linux-x86_64.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/BUILD" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/animals_and_carrots.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/animals_and_carrots.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/animals_and_carrots.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/animals_and_carrots_test.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/operations/report_the_carrots.cc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DiffPrivServer_Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/DiffPrivServer_Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Laplace.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/Laplace.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/distributions.cc" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/distributions.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/numerical-mechanisms.h" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/numerical-mechanisms.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/rand.h" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/rand.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/util.h" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/algorithms/util.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/example/report_the_carrots.cc" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/example/report_the_carrots.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/testing/stochastic_tester.h" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy/testing/stochastic_tester.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/differential-privacy-master/differential_privacy_deps.bzl" beforeDir="false" afterPath="$PROJECT_DIR$/differential-privacy-master/differential_privacy_deps.bzl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonCount.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonCount.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonMax.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonMax.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonMean.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonMean.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonMin.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonMin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonStdDev.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonStdDev.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonSum.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonSum.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/operations/AnonVar.py" beforeDir="false" afterPath="$PROJECT_DIR$/operations/AnonVar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/apple-touch-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/apple-touch-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/browserconfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/browserconfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap-theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-theme.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap-theme.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap-theme.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap-theme.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.eot" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/fonts/glyphicons-halflings-regular.eot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.svg" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/fonts/glyphicons-halflings-regular.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/fonts/glyphicons-halflings-regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/fonts/glyphicons-halflings-regular.woff" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/fonts/glyphicons-halflings-regular.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/bpr4gdpr_logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/img/bpr4gdpr_logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/download.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/img/download.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/download2.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/img/download2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/dropzone.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/dropzone.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/vendor/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/vendor/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/vendor/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/vendor/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/vendor/jquery-1.11.2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/vendor/jquery-1.11.2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/vendor/npm.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/js/vendor/npm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/tile-wide.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/tile-wide.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/tile.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/static/tile.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -18,17 +78,21 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/operations" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/templates" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/operations" />
+      <recent name="$PROJECT_DIR$/web" />
+      <recent name="$PROJECT_DIR$/csv_files" />
+      <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -42,6 +106,35 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="DiffPrivServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="DiffPrivTool" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DiffPrivServer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.DiffPrivServer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -62,7 +155,20 @@
       <workItem from="1570616810827" duration="1463000" />
       <workItem from="1570622811172" duration="599000" />
       <workItem from="1570710973708" duration="8676000" />
-      <workItem from="1570783486924" duration="254000" />
+      <workItem from="1570783486924" duration="6417000" />
+      <workItem from="1570799926123" duration="6731000" />
+      <workItem from="1571129416282" duration="7284000" />
+      <workItem from="1571141865485" duration="12196000" />
+      <workItem from="1571220730549" duration="3034000" />
+      <workItem from="1571317154769" duration="10133000" />
+      <workItem from="1571388178764" duration="17167000" />
+      <workItem from="1571646026852" duration="3889000" />
+      <workItem from="1571733168293" duration="7412000" />
+      <workItem from="1571831134240" duration="3000" />
+      <workItem from="1571842452975" duration="4000" />
+      <workItem from="1571844013360" duration="5000" />
+      <workItem from="1571921463444" duration="5000" />
+      <workItem from="1572015109306" duration="1043000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1570724720646</created>
@@ -71,7 +177,70 @@
       <option name="project" value="LOCAL" />
       <updated>1570724720646</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="First commit">
+      <created>1570783808636</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1570783808636</updated>
+    </task>
+    <task id="LOCAL-00003" summary="TODO: implement query operations.&#10;All to try">
+      <created>1570791862863</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1570791862863</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TODO: 1) implement query operations&#10;      2) implement GUI&#10;All to try">
+      <created>1570806961253</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1570806961253</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Implemented anon_count, tried execution.&#10;PROBLEM: float mod with inf Decimal, check noisedResult and nearestPowerOfTwo values">
+      <created>1571155125884</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1571155125884</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Solved problem with anon_count and added limit option">
+      <created>1571223749799</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1571223749799</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added logging">
+      <created>1571320192808</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1571320192808</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added docker configurations">
+      <created>1571328885011</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1571328885011</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Working with docker for all http routes, added logging">
+      <created>1571407978978</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1571407978978</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Redistributed files in project folder">
+      <created>1571649905054</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1571649905054</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,6 +261,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="TODO: implement query operations.&#10;All to try" />
+    <MESSAGE value="TODO: 1) implement query operations&#10;      2) implement GUI&#10;All to try" />
+    <MESSAGE value="Implemented anon_count, tried execution.&#10;PROBLEM: float mod with inf Decimal, check noisedResult and nearestPowerOfTwo values" />
+    <MESSAGE value="Solved problem with anon_count and added limit option" />
+    <MESSAGE value="Added logging" />
+    <MESSAGE value="Added docker configurations" />
+    <MESSAGE value="Working with docker for all http routes, added logging" />
+    <MESSAGE value="Redistributed files in project folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Redistributed files in project folder" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/DiffPrivTool$DiffPrivServer.coverage" NAME="DiffPrivServer Coverage Results" MODIFIED="1571406744869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -19,12 +19,10 @@
 #include "differential_privacy/proto/data.pb.h"
 #include "differential_privacy/proto/util.h"
 #include "absl/flags/flag.h"
-#include "absl/flags/parse.h"
 #include "absl/strings/str_format.h"
 #include "differential_privacy/example/animals_and_carrots.h"
 
 using absl::PrintF;
-using absl::ParseCommandLine;
 using differential_privacy::BoundingReport;
 using differential_privacy::ConfidenceInterval;
 using differential_privacy::DefaultEpsilon;
@@ -34,12 +32,11 @@ using differential_privacy::example::CarrotReporter;
 using differential_privacy::base::StatusOr;
 
 ABSL_FLAG(std::string, CarrotsDataFile,
-          "differential_privacy/example/",//animals_and_carrots.csv\",
+          "differential_privacy/example/animals_and_carrots.csv",
           "Path to the datafile where the data is stored on the number of "
           "carrots each animal has eaten.");
 
 int main(int argc, char **argv) {
-  absl::ParseCommandLine(argc, argv);
   PrintF(
       "\nIt is a new day. Farmer Fred is ready to ask the animals about their "
       "carrot consumption.\n");

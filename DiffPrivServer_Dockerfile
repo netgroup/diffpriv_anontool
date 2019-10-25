@@ -4,10 +4,12 @@ RUN apt-get update && apt-get upgrade -y
 
 WORKDIR /diffpriv
 
-ADD . /diffpriv
 RUN mkdir /diffpriv/csv_files/
 RUN mkdir /diffpriv/logs/
 RUN mkdir /diffpriv/users/
+#RUN mkdir /diffpriv/web/
+
+ADD . /diffpriv
 
 # Install all python dependencies
 RUN pip install -r requirements.txt

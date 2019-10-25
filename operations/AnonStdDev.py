@@ -1,5 +1,5 @@
 import FuncUtils as fu
-from Laplace import Laplace
+from operations.Laplace import Laplace
 
 from decimal import Decimal
 
