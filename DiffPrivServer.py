@@ -1,9 +1,12 @@
 from flask import Flask, render_template, request
+from subprocess import check_output
 
 import Const
 import CSVHandler as csvh
 import FuncUtils as fu
 import QueryHandler as qh
+
+import os
 
 ################# FLASK SERVER #################
 app = Flask(__name__, root_path=Const.ROOT_PATH)  # Create a Flask WSGI application
@@ -51,6 +54,10 @@ def send_query():
 
 
 if __name__ == '__main__':
+    os.chdir('differential-privacy-master/')
+    print 'result:\n', check_output(['/root/bin/bazel run differential_privacy/example:report_the_carrots'], shell=True)
+    #print 'result:\n', check_output(['cd', 'differential-privacy-master', '&&', 'bazel', 'run',
+    #                             'differential_privacy/example:reports_the_carrots'], shell=True)
     # os.mkdir(Const.LOG_FILES_PATH)
     # os.mkdir(Const.CSV_FILES_PATH)
     # os.mkdir(Const.USERS_LIST_PATH)

@@ -29,13 +29,13 @@ namespace example {
 // The CarrotReporter class helps the animals report differentially private (DP)
 // aggregate statistics about the number of carrots they have eaten to Farmer
 // Fred.
-class CarrotReporter {
+class Operator {
  public:
   // Loads all the animals and carrots data from the file specified by
   // data_filename into the map carrots_per_animal_. Epsilon is the differential
   // privacy parameter. Epsilon is shared between all private function calls.
   // The fraction of epsilon remaining is tracked by privacy_budget_.
-  CarrotReporter(std::string data_filename, double epsilon);
+  Operator(std::string data_filename, double epsilon);
 
   // True sum of all the carrots eaten.
   int Sum();
@@ -43,15 +43,18 @@ class CarrotReporter {
   // True mean of carrots eaten.
   double Mean();
 
+  // True variance
+  double Variance();
+
   // True count of the number of animals who ate more than "limit" carrots.
   int CountAbove(int limit);
 
   // True maximum of the number of carrots eaten by any one animal.
   int Max();
 
-  // Returns the remaining privacy budget. Animals should check this to see if
-  // they should answer any more of Farmer Fred's questions.
-  double PrivacyBudget();
+  int Min();
+
+
 
   // DP sum of all the carrots eaten.
   base::StatusOr<Output> PrivateSum(double privacy_budget);

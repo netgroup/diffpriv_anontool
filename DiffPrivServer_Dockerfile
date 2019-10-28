@@ -1,6 +1,6 @@
 FROM python:2.7
 
-RUN apt-get update && apt-get upgrade -y
+COPY . ./diffpriv
 
 WORKDIR /diffpriv
 
@@ -9,14 +9,27 @@ RUN mkdir /diffpriv/logs/
 RUN mkdir /diffpriv/users/
 #RUN mkdir /diffpriv/web/
 
-ADD . /diffpriv
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y pkg-config zip g++ zlib1g-dev unzip python3 git flex bison libreadline-dev
 
 # Install all python dependencies
 RUN pip install -r requirements.txt
 
+# Install bazel
+RUN chmod +x bazel-1.0.1-installer-linux-x86_64.sh
+RUN ./bazel-1.0.1-installer-linux-x86_64.sh --user
+ENV PATH="$HOME/bin/:${PATH}"
+#RUN cd differential-privacy-master/
+
+WORKDIR /diffpriv/differential-privacy-master/
+
+RUN /root/bin/bazel build differential_privacy/...
+
 # Make port 5002 available to the world outside this container
 EXPOSE 5002
 
-# Run app.py when the container launches
+WORKDIR /diffpriv
+
+# Run DiffPrivServer.py when the container launches
 CMD ["python", "DiffPrivServer.py"]
 #CMD ["bash"]
