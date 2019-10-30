@@ -16,6 +16,7 @@
 
 #include "differential_privacy/operations/operations.h"
 
+#include <cmath>
 #include <fstream>
 
 #include "differential_privacy/algorithms/bounded-mean.h"
@@ -41,52 +42,74 @@ Operator::Operator(std::string data_filename, double epsilon)
   }
 }
 
-double Operator::Sum() {
+double Operator::Sum(double lower, double upper) {
   double sum = 0.0;
   for (const auto& pair : value_per_key_) {
-    sum += pair.second;
+    if (pair.second >= lower && pair.second <= upper)
+      sum += pair.second;
   }
   return sum;
 }
 
-double Operator::Mean() {
-  return static_cast<double>(Sum()) / value_per_key_.size();
+double Operator::Mean(double lower, double upper) {
+  double sum = 0.0;
+  int count = 0;
+  for (const auto& pair : value_per_key_) {
+    if (pair.second >= lower && pair.second <= upper) {
+      sum += pair.second;
+      ++count;
+    }
+  }
+  return sum / count;
 }
 
-double Operator::Variance() {
+double Operator::Variance(double lower, double upper) {
   double count = 0.0;
+  int num = 0;
   for (const auto& pair : value_per_key_) {
-    count += (pair.second * pair.second);
+    if (pair.second >= lower && pair.second <= upper) {
+      count += (pair.second * pair.second);
+      ++num;
+    }
   }
-  variance = count/value_per_key_.size() - (Mean() * Mean());
+  double mean = Mean(lower, upper)
+  variance = count / num - (mean * mean);
   return variance;
 }
 
-int Operator::CountAbove(double limit) {
+double Operator::StandardDeviation(double lower, double upper) {
+  return sqrt(Variance(lower, upper));
+}
+
+int Operator::Count(double lower, double upper) {
   int count = 0;
   for (const auto& pair : value_per_key_) {
-    if (pair.second > limit) {
+    if (pair.second >= lower && pair.second <= upper) {
       ++count;
     }
   }
   return count;
 }
 
-double Operator::Max() {
+double Operator::Max(double lower, double upper) {
   double max = 0;
   for (const auto& pair : value_per_key_) {
-    max = std::max(pair.second, max);
+    if (pair.second >= lower && pair.second <= upper)
+      max = std::max(pair.second, max);
   }
   return max;
 }
 
-double Operator::Min() {
+double Operator::Min(double lower, double upper) {
   double min = 0;
   for (const auto& pair : value_per_key_) {
-    min = std::min(pair.second, max);
+    if (pair.second >= lower && pair.second <= upper)
+      min = std::min(pair.second, max);
   }
   return min;
 }
+
+double Operator::PrivacyBudget() { return privacy_budget_; }
 
 base::StatusOr<Output> Operator::PrivateSum(double privacy_budget, double lower, double upper) {
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedSum<double>> sum_algorithm,
@@ -101,9 +124,13 @@ base::StatusOr<Output> Operator::PrivateSum(double privacy_budget, double lower,
   return sum_algorithm->PartialResult(privacy_budget);
 }
 
-base::StatusOr<Output> Operator::PrivateMean(double privacy_budget) {
+base::StatusOr<Output> Operator::PrivateMean(double privacy_budget, double lower, double upper) {
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedMean<double>> mean_algorithm,
-                   BoundedMean<double>::Builder().SetEpsilon(epsilon_).Build());
+                   BoundedMean<double>::Builder()
+                       .SetEpsilon(epsilon_)
+                       .SetLower(lower) // default = 0
+                       .SetUpper(upper) // default = 150
+                       .Build());
   for (const auto& pair : value_per_key_) {
     mean_algorithm->AddEntry(pair.second);
   }
@@ -136,11 +163,11 @@ base::StatusOr<Output> Operator::PrivateStandardDeviation(double privacy_budget,
   return standard_deviation_algorithm->PartialResult(privacy_budget);
 }
 
-base::StatusOr<Output> Operator::PrivateCountAbove(double privacy_budget, double limit) {
+base::StatusOr<Output> Operator::PrivateCount(double privacy_budget, double lower, double upper) {
   ASSIGN_OR_RETURN(std::unique_ptr<Count<std::string>> count_algorithm,
                    Count<std::string>::Builder().SetEpsilon(epsilon_).Build());
   for (const auto& pair : value_per_key_) {
-    if (pair.second > limit) {
+    if (pair.second >= lower && pair.second <= upper) {
       count_algorithm->AddEntry(pair.first);
     }
   }

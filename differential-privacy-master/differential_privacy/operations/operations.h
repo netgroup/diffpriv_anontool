@@ -38,39 +38,54 @@ class Operator {
   Operator(std::string data_filename, double epsilon);
 
   // True sum of all the carrots eaten.
-  int Sum();
+  double Sum(double lower, double upper);
 
   // True mean of carrots eaten.
-  double Mean();
+  double Mean(, double lower, double upper);
 
   // True variance
-  double Variance();
+  double Variance(double lower, double upper);
+
+  // True standard deviation
+  double StandardDeviation(double lower, double upper);
 
   // True count of the number of animals who ate more than "limit" carrots.
-  int CountAbove(int limit);
+  int Count(double lower, double upper);
 
   // True maximum of the number of carrots eaten by any one animal.
-  int Max();
+  double Max(double lower, double upper);
 
-  int Min();
+  // True minimum of the number of carrots eaten by any one animal.
+  double Min(double lower, double upper);
 
-
+  // Returns the remaining privacy budget. Animals should check this to see if
+  // they should answer any more of Farmer Fred's questions.
+  double PrivacyBudget();
 
   // DP sum of all the carrots eaten.
-  base::StatusOr<Output> PrivateSum(double privacy_budget);
+  base::StatusOr<Output> PrivateSum(double privacy_budget, double lower, double upper);
 
   // DP mean of all carrots eaten.
-  base::StatusOr<Output> PrivateMean(double privacy_budget);
+  base::StatusOr<Output> PrivateMean(double privacy_budget, double lower, double upper);
+
+  // DP variance of all carrots eaten.
+  base::StatusOr<Output> PrivateVariance(double privacy_budget, double lower, double upper);
+
+  // DP standard deviation of all carrots eaten.
+  base::StatusOr<Output> PrivateStandardDeviation(double privacy_budget, double lower, double upper);
 
   // DP count of the number of animals who ate more than "limit" carrots.
-  base::StatusOr<Output> PrivateCountAbove(double privacy_budget, int limit);
+  base::StatusOr<Output> PrivateCount(double privacy_budget, double lower, double upper);
 
   // DP maximum of the number of carrots eaten by any one animal.
-  base::StatusOr<Output> PrivateMax(double privacy_budget);
+  base::StatusOr<Output> PrivateMax(double privacy_budget, double lower, double upper);
+
+  // DP minimum of the number of carrots eaten by any one animal.
+  base::StatusOr<Output> PrivateMin(double privacy_budget, double lower, double upper);
 
  private:
   // Map from the animal name to the number of carrots eaten by that animal.
-  std::map<std::string, int> carrots_per_animal_;
+  std::map<std::string, double> value_per_key_;
 
   // Differential privacy parameter epsilon. A larger epsilon corresponds to
   // less privacy and more accuracy.
