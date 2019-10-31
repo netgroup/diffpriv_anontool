@@ -53,7 +53,7 @@ def send_query():
 
 
 if __name__ == '__main__':
-    # os.mkdir(Const.LOG_FILES_PATH)
-    # os.mkdir(Const.CSV_FILES_PATH)
-    # os.mkdir(Const.USERS_LIST_PATH)
+    os.mkdir(Const.LOG_FILES_PATH)
+    os.mkdir(Const.CSV_FILES_PATH)
+    os.mkdir(Const.USERS_LIST_PATH)
     app.run(host=Const.SERVER_ADDR, port=Const.SERVER_PORT)

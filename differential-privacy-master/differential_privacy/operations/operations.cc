@@ -36,7 +36,7 @@ Operator::Operator(std::string data_filename, double epsilon)
   while (getline(file, line)) {
     std::vector<std::string> key_and_value = absl::StrSplit(line, ',');
     CHECK_EQ(key_and_value.size(), 2);
-    int count;
+    double count;
     CHECK(absl::SimpleAtod(key_and_value[1], &count));
     value_per_key_[key_and_value[0]] = count;
   }
@@ -72,7 +72,7 @@ double Operator::Variance(double lower, double upper) {
       ++num;
     }
   }
-  double mean = Mean(lower, upper)
+  double mean = Mean(lower, upper);
   variance = count / num - (mean * mean);
   return variance;
 }
@@ -104,7 +104,7 @@ double Operator::Min(double lower, double upper) {
   double min = 0;
   for (const auto& pair : value_per_key_) {
     if (pair.second >= lower && pair.second <= upper)
-      min = std::min(pair.second, max);
+      min = std::min(pair.second, min);
   }
   return min;
 }

@@ -41,7 +41,7 @@ class Operator {
   double Sum(double lower, double upper);
 
   // True mean of carrots eaten.
-  double Mean(, double lower, double upper);
+  double Mean(double lower, double upper);
 
   // True variance
   double Variance(double lower, double upper);

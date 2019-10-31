@@ -19,8 +19,9 @@
 #include "differential_privacy/proto/data.pb.h"
 #include "differential_privacy/proto/util.h"
 #include "absl/flags/flag.h"
+#include "absl/strings/numbers.h"
 #include "absl/strings/str_format.h"
-#include "differential_privacy/example/animals_and_carrots.h"
+#include "differential_privacy/operations/operations.h"
 
 using absl::PrintF;
 using differential_privacy::BoundingReport;
@@ -28,35 +29,30 @@ using differential_privacy::ConfidenceInterval;
 using differential_privacy::DefaultEpsilon;
 using differential_privacy::GetValue;
 using differential_privacy::Output;
-using differential_privacy::example::CarrotReporter;
+using differential_privacy::operations::Operator;
 using differential_privacy::base::StatusOr;
 
-ABSL_FLAG(std::string, CarrotsDataFile,
-          "differential_privacy/example/animals_and_carrots.csv",
-          "Path to the datafile where the data is stored on the number of "
-          "carrots each animal has eaten.");
+ABSL_FLAG(std::string, DataFile,
+          "differential_privacy/operations/data.csv",
+          "Path to the datafile where the data is stored.");
 
-int main(int argc, char **argv) {
-  PrintF(
-      "\nIt is a new day. Farmer Fred is ready to ask the animals about their "
-      "carrot consumption.\n");
+double *main(int argc, char **argv) {
+  double results[] = {NULL, NULL};
+  if (argc < 5)
+    return results;
+  // Load data into the Operator.
+  double epsilon, budget, lower, upper;
+  CHECK(absl::SimpleAtod(argv[2], &epsilon));
+  CHECK(absl::SimpleAtod(argv[3], &budget));
+  CHECK(absl::SimpleAtod(argv[4], &lower));
+  CHECK(absl::SimpleAtod(argv[5], &upper));
+  Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
 
-  // Load the carrot data into the CarrotReporter. We use a higher epsilon to
-  // obtain a higher accuracy since our dataset is very small.
-  const double epsilon = 4 * DefaultEpsilon();
-  CarrotReporter reporter(absl::GetFlag(FLAGS_CarrotsDataFile), epsilon);
-
-  // Query for the total number of carrots.
-  PrintF(
-      "\nFarmer Fred asks the animals how many total carrots they have "
-      "eaten. The animals know the true sum but report the "
-      "differentially private sum to Farmer Fred. But first, they ensure "
-      "that Farmer Fred still has privacy budget left.\n");
-  PrintF("\nPrivacy budget remaining: %.2f\n", reporter.PrivacyBudget());
-  PrintF("True sum: %d\n", reporter.Sum());
-  PrintF("DP sum:   %d\n",
-         GetValue<int>(reporter.PrivateSum(.25).ValueOrDie()));
-
+  // Execute true and private sums
+  results[0] = op.Sum();
+  results[1] = op.PrivateSum(budget).ValueOrDie();
+  return results;
+/*
   // Query for the mean with a bounding report.
   PrintF(
       "\nFarmer Fred catches on that the animals are giving him DP results. "
@@ -132,5 +128,5 @@ int main(int argc, char **argv) {
   PrintF(
       "The animals notice that the privacy budget is depleted. They refuse "
       "to answer any more of Fred's questions for risk of violating "
-      "privacy.\n");
+      "privacy.\n");*/
 }

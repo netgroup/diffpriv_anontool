@@ -19,8 +19,8 @@
 licenses(["notice"])  # Apache v2.0
 
 cc_binary(
-    name = "report_the_carrots",
-    srcs = ["report_the_carrots.cc"],
+    name = "priv_sum",
+    srcs = ["priv_sum.cc"],
     deps = [
         ":operations",
         "//differential_privacy/algorithms:confidence_interval_cc_proto",
@@ -29,6 +29,7 @@ cc_binary(
         "//differential_privacy/proto:util-lib",
         "@com_google_absl//absl/flags:flag",
         "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
     ],
 )
 

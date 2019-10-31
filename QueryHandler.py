@@ -20,7 +20,7 @@ def error_operation(data, epsilon, budget):
 
 
 # Choose the proper function according to given operation string and execute it on the given data
-def exec_query_operation(operation, data, epsilon, budget):
+def exec_query_operation(operation, epsilon, budget, lower, upper):
     switcher = {
         Const.COUNT: acount.compute,
         Const.SUM: asum.compute,
@@ -33,11 +33,11 @@ def exec_query_operation(operation, data, epsilon, budget):
     # Get the function from switcher dictionary
     func = switcher.get(operation, error_operation)
     # Execute the function
-    return func(data, epsilon, budget)
+    return func(epsilon, budget, lower, upper)
 
 
 # Parse query and execute it
-def exec_query(file_name, query, epsilon, budget, limit=0):
+def exec_query(file_name, query, epsilon, budget):
     # Create query grammar
     statement = Word(alphas)
     operation = Word(alphas)
@@ -47,14 +47,19 @@ def exec_query(file_name, query, epsilon, budget, limit=0):
     items = pattern.parseString(query)
     print 'Parsing result:', items
     items[2] = 'age'
+    lower = -float(Const.INFINITY)
+    upper = float(Const.INFINITY)
     # Extract data according the given column
     full_data = pd.read_csv(Const.CSV_FILES_PATH + file_name, header=0)
     data = full_data[items[2]]
     if fu.is_numeric(data):
         # Select data greater than limit
-        data = data[data.iloc[:] >= limit]
+        # data = data[data.iloc[:] >= limit]
+        df = full_data[[full_data.columns[0], items[2]]]
+        print 'reduced data:\n', df
+        df.to_csv(Const.TMP_FILE_PATH, header=False, index=False)
         # Execute query only if data is numeric
-        return exec_query_operation(items[1], data.values, epsilon, budget)
+        return exec_query_operation(items[1], epsilon, budget, lower, upper)
     fu.log(fu.get_current_time() + Const.NO_NUMERIC_QUERY + '\n')
     return Const.NO_NUMERIC_QUERY
 
