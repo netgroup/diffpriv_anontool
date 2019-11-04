@@ -23,7 +23,7 @@
 #include <limits>
 
 namespace differential_privacy {
-namespace example {
+namespace operations {
 namespace {
 
 constexpr char kDatafile[] =
@@ -68,5 +68,5 @@ TEST(OperatorTest, PrivacyBudget) {
 }
 
 }  // namespace
-}  // namespace example
+}  // namespace operations
 }  // namespace differential_privacy

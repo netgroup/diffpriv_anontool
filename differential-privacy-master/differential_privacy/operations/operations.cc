@@ -21,13 +21,15 @@
 
 #include "differential_privacy/algorithms/bounded-mean.h"
 #include "differential_privacy/algorithms/bounded-sum.h"
+#include "differential_privacy/algorithms/bounded-variance.h"
+#include "differential_privacy/algorithms/bounded-standard-deviation.h"
 #include "differential_privacy/algorithms/count.h"
 #include "differential_privacy/algorithms/order-statistics.h"
 #include "absl/strings/numbers.h"
 #include "absl/strings/str_split.h"
 
 namespace differential_privacy {
-namespace example {
+namespace operations {
 
 Operator::Operator(std::string data_filename, double epsilon)
     : epsilon_(epsilon) {
@@ -73,8 +75,7 @@ double Operator::Variance(double lower, double upper) {
     }
   }
   double mean = Mean(lower, upper);
-  variance = count / num - (mean * mean);
-  return variance;
+  return count / num - (mean * mean);
 }
 
 double Operator::StandardDeviation(double lower, double upper) {
@@ -200,5 +201,5 @@ base::StatusOr<Output> Operator::PrivateMin(double privacy_budget, double lower,
   return min_algorithm->PartialResult(privacy_budget);
 }
 
-}  // namespace example
+}  // namespace operations
 }  // namespace differential_privacy

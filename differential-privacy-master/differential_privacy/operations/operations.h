@@ -24,7 +24,7 @@
 #include "differential_privacy/base/statusor.h"
 
 namespace differential_privacy {
-namespace example {
+namespace operations {
 
 // The CarrotReporter class helps the animals report differentially private (DP)
 // aggregate statistics about the number of carrots they have eaten to Farmer
@@ -97,7 +97,7 @@ class Operator {
   double privacy_budget_ = 1;
 };
 
-}  // namespace example
+}  // namespace operations
 }  // namespace differential_privacy
 
 #endif  // DIFFERENTIAL_PRIVACY_EXAMPLE_ANIMALS_AND_CARROTS_H_

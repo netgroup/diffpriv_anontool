@@ -14,6 +14,9 @@
 // limitations under the License.
 //
 
+#include <iostream>
+#include <fstream>
+
 #include "differential_privacy/algorithms/confidence-interval.pb.h"
 #include "differential_privacy/algorithms/util.h"
 #include "differential_privacy/proto/data.pb.h"
@@ -32,14 +35,40 @@ using differential_privacy::Output;
 using differential_privacy::operations::Operator;
 using differential_privacy::base::StatusOr;
 
+class Result {
+
+   private:
+
+      double true_value;
+      std::string priv_value;
+
+   public:
+
+      // Constructors
+      Result() {
+         true_value = 0.0;
+         priv_value = "";
+      }
+
+      Result(double real, std::string priv) {
+         true_value = real;
+         priv_value = priv;
+      }
+
+      friend std::ostream &operator<<(std::ostream &output, const Result &R) {
+         output << R.true_value << "\n" << R.priv_value;
+         return output;
+      }
+
+};
+
 ABSL_FLAG(std::string, DataFile,
           "differential_privacy/operations/data.csv",
           "Path to the datafile where the data is stored.");
 
-double *main(int argc, char **argv) {
-  double results[] = {NULL, NULL};
+int main(int argc, char **argv) {
   if (argc < 5)
-    return results;
+    return 1;
   // Load data into the Operator.
   double epsilon, budget, lower, upper;
   CHECK(absl::SimpleAtod(argv[2], &epsilon));
@@ -47,11 +76,18 @@ double *main(int argc, char **argv) {
   CHECK(absl::SimpleAtod(argv[4], &lower));
   CHECK(absl::SimpleAtod(argv[5], &upper));
   Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
-
-  // Execute true and private sums
-  results[0] = op.Sum();
-  results[1] = op.PrivateSum(budget).ValueOrDie();
-  return results;
+  std::ofstream file("result.txt");
+  if (file.is_open())
+  {
+    // Create an object containing true and private sums
+    Result res(op.Sum(lower, upper), op.PrivateSum(budget, lower, upper).ValueOrDie().DebugString());
+    // Write true and private sums on an output file
+    file << res;
+    file.close();
+  }
+  else
+    return 1;
+  return 0;
 /*
   // Query for the mean with a bounding report.
   PrintF(

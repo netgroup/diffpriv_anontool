@@ -43,6 +43,8 @@ cc_library(
         "//differential_privacy/base:statusor",
         "//differential_privacy/algorithms:bounded-mean",
         "//differential_privacy/algorithms:bounded-sum",
+        "//differential_privacy/algorithms:bounded-variance",
+        "//differential_privacy/algorithms:bounded-standard-deviation",
         "//differential_privacy/algorithms:count",
         "//differential_privacy/algorithms:order-statistics",
         "//differential_privacy/proto:data_cc_proto",
