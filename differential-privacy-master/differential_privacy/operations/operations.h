@@ -50,7 +50,7 @@ class Operator {
   double StandardDeviation(double lower, double upper);
 
   // True count of the number of animals who ate more than "limit" carrots.
-  int Count(double lower, double upper);
+  int BoundCount(double lower, double upper);
 
   // True maximum of the number of carrots eaten by any one animal.
   double Max(double lower, double upper);

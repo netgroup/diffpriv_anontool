@@ -82,7 +82,7 @@ double Operator::StandardDeviation(double lower, double upper) {
   return sqrt(Variance(lower, upper));
 }
 
-int Operator::Count(double lower, double upper) {
+int Operator::BoundCount(double lower, double upper) {
   int count = 0;
   for (const auto& pair : value_per_key_) {
     if (pair.second >= lower && pair.second <= upper) {
@@ -167,12 +167,18 @@ base::StatusOr<Output> Operator::PrivateStandardDeviation(double privacy_budget,
 base::StatusOr<Output> Operator::PrivateCount(double privacy_budget, double lower, double upper) {
   ASSIGN_OR_RETURN(std::unique_ptr<Count<std::string>> count_algorithm,
                    Count<std::string>::Builder().SetEpsilon(epsilon_).Build());
+  //Count count_algorithm;
+  //std::unique_ptr<Count<std::string>> count_algorithm;
+//  std::unique_ptr< Count<std::string> > count_algorithm;
   for (const auto& pair : value_per_key_) {
     if (pair.second >= lower && pair.second <= upper) {
       count_algorithm->AddEntry(pair.first);
     }
   }
   return count_algorithm->PartialResult(privacy_budget);
+
+    //base::StatusOr<Output> c;
+    //return c;
 }
 
 base::StatusOr<Output> Operator::PrivateMax(double privacy_budget, double lower, double upper) {

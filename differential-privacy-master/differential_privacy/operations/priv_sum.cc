@@ -71,16 +71,16 @@ int main(int argc, char **argv) {
     return 1;
   // Load data into the Operator.
   double epsilon, budget, lower, upper;
-  CHECK(absl::SimpleAtod(argv[2], &epsilon));
-  CHECK(absl::SimpleAtod(argv[3], &budget));
-  CHECK(absl::SimpleAtod(argv[4], &lower));
-  CHECK(absl::SimpleAtod(argv[5], &upper));
+  CHECK(absl::SimpleAtod(argv[1], &epsilon));
+  CHECK(absl::SimpleAtod(argv[2], &budget));
+  CHECK(absl::SimpleAtod(argv[3], &lower));
+  CHECK(absl::SimpleAtod(argv[4], &upper));
   Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
-  std::ofstream file("result.csv");
+  std::ofstream file("/home/serse/PycharmProjects/DiffPrivTool/result.csv");
   if (file.is_open())
   {
     // Create an object containing true and private sums
-    Result res(op.Sum(lower, upper), op.PrivateSum(budget, lower, upper).ValueOrDie().DebugString());
+    Result res(op.Sum(lower, upper), op.PrivateSum(budget, lower, upper).ValueOrDie().elements(0).value());
     // Write true and private sums on an output file
     file << res;
     file.close();

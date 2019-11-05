@@ -12,4 +12,5 @@ def compute(epsilon, budget, lower, upper):
     out = check_output(['bazel run differential_privacy/operations:priv_sum -- %f %f %f %f'
                         % (epsilon, budget, lower, upper)], shell=True)
     print "AnonSum output:\n", out
+    os.chdir('../')
     return out

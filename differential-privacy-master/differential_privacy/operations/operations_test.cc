@@ -32,7 +32,7 @@ constexpr char kDatafile[] =
 TEST(OperatorTest, TrueStatistics) {
   Operator op(kDatafile, 1);
   EXPECT_EQ(op.Mean(0, std::numeric_limits<double>::max()),
-            op.Sum(0, std::numeric_limits<double>::max()) / op.Count(0, std::numeric_limits<double>::max()));
+            op.Sum(0, std::numeric_limits<double>::max()) / op.BoundCount(0, std::numeric_limits<double>::max()));
   EXPECT_EQ(op.Max(0, std::numeric_limits<double>::max()), 100);
   EXPECT_EQ(op.Min(0, std::numeric_limits<double>::max()), 0);
   EXPECT_EQ(op.Variance(0, std::numeric_limits<double>::max()),

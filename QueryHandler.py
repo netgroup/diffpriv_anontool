@@ -56,8 +56,8 @@ def exec_query(file_name, query, epsilon, budget):
     items = pattern.parseString(query)
     print 'Parsing result:', items
     items[2] = 'age'
-    lower = -float(Const.INFINITY)
-    upper = float(Const.INFINITY)
+    lower = -1000000
+    upper = 1000000
     # Extract data according the given column
     full_data = pd.read_csv(Const.CSV_FILES_PATH + file_name, header=0)
     data = full_data[items[2]]
