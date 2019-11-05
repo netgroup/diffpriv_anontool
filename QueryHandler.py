@@ -33,7 +33,16 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
     # Get the function from switcher dictionary
     func = switcher.get(operation, error_operation)
     # Execute the function
-    return func(epsilon, budget, lower, upper)
+    if func(epsilon, budget, lower, upper) is 0:
+        data = pd.read_csv('result.csv', header=None)
+        true_value = data[0]
+        anon_value = data[1]
+        fu.log(fu.get_current_time() + 'Result of ' + operation + ' has true value = ' + true_value +
+               'and anonymized value = ' + anon_value + '\n')
+        return anon_value
+    else:
+        fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
+        return Const.NO_RESULT
 
 
 # Parse query and execute it

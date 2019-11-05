@@ -40,12 +40,12 @@ MAX = 'max'
 OK = '200'
 BAD_REQ = '400'
 NO_METHOD = '405'
-ERROR = 'ERROR'
 NO_NUMERIC = '[ERROR] In csv file there are no numeric columns!'
 FILE_EXIST = '[ERROR] File already uploaded!'
 NO_BUDGET = '[ERROR] This user has not enough remaining budget!'
 NO_NUMERIC_QUERY = '[ERROR] Given query is on non-numeric data!'
 INVALID_OPERATION = '[ERROR] Invalid operation!'
+NO_RESULT = '[ERROR] Invalid operation result!'
 
 # BUDGET
 STARTING_BUDGET = 1

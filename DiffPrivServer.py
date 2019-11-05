@@ -45,7 +45,7 @@ def send_query():
         epsilon = float(content[Const.EPSILON])
         fu.log(fu.get_current_time() + '[' + Const.QUERY + ' ' + request.method + '] Received from ' + user_id +
                ' request for query:' + query + ' from ' + file_name + ' with epsilon = ' + str(epsilon) + '\n')
-        return str(qh.check_query(user_id, file_name, query, epsilon)), Const.OK
+        return qh.check_query(user_id, file_name, query, epsilon), Const.OK
     else:
         fu.log(fu.get_current_time() + '[' + Const.QUERY + ' ' + request.method +
                '] Received request with not allowed method\n')

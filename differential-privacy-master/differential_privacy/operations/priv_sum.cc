@@ -56,7 +56,7 @@ class Result {
       }
 
       friend std::ostream &operator<<(std::ostream &output, const Result &R) {
-         output << R.true_value << "\n" << R.priv_value;
+         output << R.true_value << "," << R.priv_value;
          return output;
       }
 
@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
   CHECK(absl::SimpleAtod(argv[4], &lower));
   CHECK(absl::SimpleAtod(argv[5], &upper));
   Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
-  std::ofstream file("result.txt");
+  std::ofstream file("result.csv");
   if (file.is_open())
   {
     // Create an object containing true and private sums
