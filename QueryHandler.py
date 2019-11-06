@@ -33,16 +33,20 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
     # Get the function from switcher dictionary
     func = switcher.get(operation, error_operation)
     # Execute the function
-    if func(epsilon, budget, lower, upper) is 0:
-        data = pd.read_csv('result.csv', header=None)
-        true_value = data[0]
-        anon_value = data[1]
+    func(epsilon, budget, lower, upper)
+    if os.path.exists(Const.RESULT):
+        data = pd.read_csv(Const.RESULT, header=None)
+        # Extract results
+        true_value = str(data[0].values[0])
+        anon_value = str(data[1].values[0])
         fu.log(fu.get_current_time() + 'Result of ' + operation + ' has true value = ' + true_value +
-               'and anonymized value = ' + anon_value + '\n')
+               ' and anonymized value = ' + anon_value + '\n')
+        # Remove result file
+        os.remove(Const.RESULT)
         return anon_value
-    else:
-        fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
-        return Const.NO_RESULT
+    # Execution failed
+    fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
+    return Const.NO_RESULT
 
 
 # Parse query and execute it
@@ -66,7 +70,7 @@ def exec_query(file_name, query, epsilon, budget):
         # data = data[data.iloc[:] >= limit]
         df = full_data[[full_data.columns[0], items[2]]]
         print 'reduced data:\n', df
-        df.to_csv(Const.TMP_FILE_PATH, header=False, index=False)
+        df.to_csv(Const.DIFF_PRIV_PATH + Const.TMP_FILE_PATH, header=False, index=False)
         # Execute query only if data is numeric
         return exec_query_operation(items[1], epsilon, budget, lower, upper)
     fu.log(fu.get_current_time() + Const.NO_NUMERIC_QUERY + '\n')

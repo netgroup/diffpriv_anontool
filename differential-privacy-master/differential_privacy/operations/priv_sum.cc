@@ -39,18 +39,13 @@ class Result {
 
    private:
 
-      double true_value;
+      std::string true_value;
       std::string priv_value;
 
    public:
 
-      // Constructors
-      Result() {
-         true_value = 0.0;
-         priv_value = "";
-      }
-
-      Result(double real, std::string priv) {
+      // Constructor
+      Result(std::string real, std::string priv) {
          true_value = real;
          priv_value = priv;
       }
@@ -69,25 +64,28 @@ ABSL_FLAG(std::string, DataFile,
 int main(int argc, char **argv) {
   if (argc < 5)
     return 1;
-  // Load data into the Operator.
-  double epsilon, budget, lower, upper;
-  CHECK(absl::SimpleAtod(argv[1], &epsilon));
-  CHECK(absl::SimpleAtod(argv[2], &budget));
-  CHECK(absl::SimpleAtod(argv[3], &lower));
-  CHECK(absl::SimpleAtod(argv[4], &upper));
-  Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
-  std::ofstream file("/home/serse/PycharmProjects/DiffPrivTool/result.csv");
-  if (file.is_open())
-  {
-    // Create an object containing true and private sums
-    Result res(op.Sum(lower, upper), op.PrivateSum(budget, lower, upper).ValueOrDie().elements(0).value());
-    // Write true and private sums on an output file
-    file << res;
-    file.close();
+  else {
+    // Load data into the Operator.
+    double epsilon, budget, lower, upper;
+    CHECK(absl::SimpleAtod(argv[1], &epsilon));
+    CHECK(absl::SimpleAtod(argv[2], &budget));
+    CHECK(absl::SimpleAtod(argv[3], &lower));
+    CHECK(absl::SimpleAtod(argv[4], &upper));
+    Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
+    std::ofstream file("/home/serse/PycharmProjects/DiffPrivTool/result.csv");
+    if (file.is_open()) {
+      // Create an object containing true and private sums
+      std::string true_val = absl::StrFormat("%f", op.Sum(lower, upper));
+      std::string priv_val = absl::StrFormat("%f", GetValue<double>(op.PrivateSum(budget, lower, upper).ValueOrDie().elements(0).value()));
+      Result res(true_val, priv_val);
+      // Write true and private sums on an output file
+      file << res;
+      file.close();
+      return 0;
+    }
+    else
+      return 1;
   }
-  else
-    return 1;
-  return 0;
 /*
   // Query for the mean with a bounding report.
   PrintF(

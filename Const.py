@@ -5,8 +5,8 @@ SERVER_ADDR = 'localhost'
 SERVER_PORT = '5002'
 
 # ROUTES AND FIELDS
-#ROOT_PATH = '/diffpriv/web'
-ROOT_PATH = './web/'
+#FLASK_ROOT_PATH = '/diffpriv/web'
+FLASK_ROOT_PATH = './web/'
 GET = 'GET'
 POST = 'POST'
 INDEX = 'index'
@@ -16,6 +16,8 @@ FILE = 'file'
 EPSILON = 'epsilon'
 ID = 'id'
 BUDGET = 'budget'
+
+# DIR_PATH AND FILES
 CSV_FILES_PATH = './csv_files/'
 #CSV_FILES_PATH = '/diffpriv/csv_files/'
 USERS_LIST_PATH = './users/'
@@ -24,8 +26,12 @@ USERS = 'users_list.csv'
 LOG_FILES_PATH = './logs/'
 #LOG_FILES_PATH = '/diffpriv/logs/'
 LOG = 'log'
-TMP_FILE_PATH = './differential-privacy-master/differential_privacy/operations/data.csv'
+TMP_FILE_PATH = 'differential_privacy/operations/data.csv'
 #TMP_FILE_PATH = '/diffpriv/differential-privacy-master/differential_privacy/operations/data.csv'
+DIFF_PRIV_PATH = './differential-privacy-master/'
+PARENT_DIR = '../'
+RESULT = 'result.csv'
+
 
 # QUERY FUNCTIONS
 COUNT = 'count'

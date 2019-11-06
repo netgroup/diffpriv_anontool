@@ -8,7 +8,7 @@ import QueryHandler as qh
 import os
 
 ################# FLASK SERVER #################
-app = Flask(__name__, root_path=Const.ROOT_PATH)  # Create a Flask WSGI application
+app = Flask(__name__, root_path=Const.FLASK_ROOT_PATH)  # Create a Flask WSGI application
 
 
 @app.route('/', methods=[Const.GET])
