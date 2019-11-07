@@ -1,39 +1,40 @@
-from operations import AnonMean as amean
-from operations import AnonVar as avar
-from operations import AnonCount as acount
-from operations import AnonSum as asum
-from operations import AnonStdDev as adev
-from operations import AnonMax as amax
-from operations import AnonMin as amin
 from pyparsing import Word, alphas
 
 import Const
 import FuncUtils as fu
 import pandas as pd
-import os.path
+import os
+import subprocess
 
 
-# Default execution if operation is not handled
-def error_operation(data, epsilon, budget):
-    fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
-    return Const.INVALID_OPERATION
+# # Default execution if operation is not handled
+# def error_operation(data, epsilon, budget):
+#     fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
+#     return Const.INVALID_OPERATION
 
 
 # Choose the proper function according to given operation string and execute it on the given data
 def exec_query_operation(operation, epsilon, budget, lower, upper):
-    switcher = {
-        Const.COUNT: acount.compute,
-        Const.SUM: asum.compute,
-        Const.AVG: amean.compute,
-        Const.VAR: avar.compute,
-        Const.STD_DEV: adev.compute,
-        Const.MAX: amax.compute,
-        Const.MIN: amin.compute
-    }
-    # Get the function from switcher dictionary
-    func = switcher.get(operation, error_operation)
-    # Execute the function
-    func(epsilon, budget, lower, upper)
+    os.chdir(Const.DIFF_PRIV_MASTER_PATH)
+    # os.chdir('/diffpriv/differential-privacy-master/')
+    # out = check_output(['/root/bin/bazel run differential_privacy/operations:priv_sum -- %f %f %f %f'
+    #                    % (epsilon, budget, lower, upper)], shell=True)
+    subprocess.check_output(['bazel run %soperations:priv_%s -- %f %f %f %f'
+                             % (Const.DIFF_PRIV_PATH, operation, epsilon, budget, lower, upper)], shell=True)
+    os.chdir(Const.PARENT_DIR)
+    # switcher = {
+    #     Const.COUNT: acount.compute,
+    #     Const.SUM: asum.compute,
+    #     Const.AVG: amean.compute,
+    #     Const.VAR: avar.compute,
+    #     Const.STD_DEV: adev.compute,
+    #     Const.MAX: amax.compute,
+    #     Const.MIN: amin.compute
+    # }
+    # # Get the function from switcher dictionary
+    # func = switcher.get(operation, error_operation)
+    # # Execute the function
+    # func(epsilon, budget, lower, upper)
     if os.path.exists(Const.RESULT):
         data = pd.read_csv(Const.RESULT, header=None)
         # Extract results
@@ -49,6 +50,13 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
     return Const.NO_RESULT
 
 
+def check_operation(operation):
+    valid_operations = [Const.COUNT, Const.SUM, Const.AVG, Const.VAR, Const.STD_DEV, Const.MIN, Const.MAX]
+    if operation in valid_operations:
+        return True
+    return False
+
+
 # Parse query and execute it
 def exec_query(file_name, query, epsilon, budget):
     # Create query grammar
@@ -58,19 +66,23 @@ def exec_query(file_name, query, epsilon, budget):
     pattern = statement + operation + '(' + column + ')'
     # Parse query string
     items = pattern.parseString(query)
-    print 'Parsing result:', items
-    items[2] = 'age'
+    items[1] = items[1].lower()
+    print 'Parsing result:', items # TO REMOVE
+    if not check_operation(items[1]):
+        fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
+        return Const.INVALID_OPERATION
+    items[4] = 'age'
     lower = -1000000
     upper = 1000000
     # Extract data according the given column
     full_data = pd.read_csv(Const.CSV_FILES_PATH + file_name, header=0)
-    data = full_data[items[2]]
+    data = full_data[items[4]]
     if fu.is_numeric(data):
         # Select data greater than limit
         # data = data[data.iloc[:] >= limit]
-        df = full_data[[full_data.columns[0], items[2]]]
+        df = full_data[[full_data.columns[0], items[4]]]
         print 'reduced data:\n', df
-        df.to_csv(Const.DIFF_PRIV_PATH + Const.TMP_FILE_PATH, header=False, index=False)
+        df.to_csv(Const.DIFF_PRIV_MASTER_PATH + Const.DIFF_PRIV_PATH + Const.TMP_FILE_PATH, header=False, index=False)
         # Execute query only if data is numeric
         return exec_query_operation(items[1], epsilon, budget, lower, upper)
     fu.log(fu.get_current_time() + Const.NO_NUMERIC_QUERY + '\n')

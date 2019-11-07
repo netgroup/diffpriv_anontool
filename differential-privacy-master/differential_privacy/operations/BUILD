@@ -33,6 +33,96 @@ cc_binary(
     ],
 )
 
+cc_binary(
+    name = "priv_count",
+    srcs = ["priv_count.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_binary(
+    name = "priv_avg",
+    srcs = ["priv_avg.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_binary(
+    name = "priv_var",
+    srcs = ["priv_var.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_binary(
+    name = "priv_stdev",
+    srcs = ["priv_stdev.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_binary(
+    name = "priv_max",
+    srcs = ["priv_max.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
+cc_binary(
+    name = "priv_min",
+    srcs = ["priv_min.cc"],
+    deps = [
+        ":operations",
+        "//differential_privacy/algorithms:confidence_interval_cc_proto",
+        "//differential_privacy/algorithms:util",
+        "//differential_privacy/proto:data_cc_proto",
+        "//differential_privacy/proto:util-lib",
+        "@com_google_absl//absl/flags:flag",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/strings",
+    ],
+)
+
 cc_library(
     name = "operations",
     srcs = ["operations.cc"],

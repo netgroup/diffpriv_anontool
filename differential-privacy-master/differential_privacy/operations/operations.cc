@@ -18,6 +18,7 @@
 
 #include <cmath>
 #include <fstream>
+#include <limits>
 
 #include "differential_privacy/algorithms/bounded-mean.h"
 #include "differential_privacy/algorithms/bounded-sum.h"
@@ -93,7 +94,7 @@ int Operator::BoundCount(double lower, double upper) {
 }
 
 double Operator::Max(double lower, double upper) {
-  double max = 0;
+  double max = std::numeric_limits<double>::min();
   for (const auto& pair : value_per_key_) {
     if (pair.second >= lower && pair.second <= upper)
       max = std::max(pair.second, max);
@@ -102,7 +103,7 @@ double Operator::Max(double lower, double upper) {
 }
 
 double Operator::Min(double lower, double upper) {
-  double min = 0;
+  double min = std::numeric_limits<double>::max();
   for (const auto& pair : value_per_key_) {
     if (pair.second >= lower && pair.second <= upper)
       min = std::min(pair.second, min);
