@@ -91,11 +91,11 @@ def differential_privacy_deps():
         )
 
     # Postgres depends on rules_foreign_cc.
-    if not native.existing_rule("postgres"):
-        new_git_repository(
-            name = "postgres",
-            # 2019-08-16 stable version 11.
-            commit = "aed967d697de19a78a653926c72604f9b04c3b1e",
-            remote = "https://github.com/postgres/postgres/",
-            build_file = "@com_google_differential_privacy//differential_privacy/postgres:postgres.BUILD",
-        )
+    #if not native.existing_rule("postgres"):
+    #    new_git_repository(
+    #        name = "postgres",
+    #        # 2019-08-16 stable version 11.
+    #        commit = "aed967d697de19a78a653926c72604f9b04c3b1e",
+    #        remote = "https://github.com/postgres/postgres/",
+    #        build_file = "@com_google_differential_privacy//differential_privacy/postgres:postgres.BUILD",
+    #    )

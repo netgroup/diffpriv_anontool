@@ -8,7 +8,7 @@ import QueryHandler as qh
 import os
 
 ################# FLASK SERVER #################
-app = Flask(__name__, root_path=Const.FLASK_ROOT_PATH)  # Create a Flask WSGI application
+app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)  # Create a Flask WSGI application
 
 
 @app.route('/', methods=[Const.GET])
@@ -53,7 +53,7 @@ def send_query():
 
 
 if __name__ == '__main__':
-    os.mkdir(Const.LOG_FILES_PATH)
-    os.mkdir(Const.CSV_FILES_PATH)
-    os.mkdir(Const.USERS_LIST_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
     app.run(host=Const.SERVER_ADDR, port=Const.SERVER_PORT)

@@ -1,5 +1,10 @@
 FROM ubuntu:latest
 
+RUN mkdir /diffpriv/csv_files/
+RUN mkdir /diffpriv/logs/
+RUN mkdir /diffpriv/users/
+RUN mkdir /diffpriv/web/
+
 COPY . ./diffpriv
 
 WORKDIR /diffpriv
@@ -15,18 +20,13 @@ WORKDIR /diffpriv/differential-privacy-master/
 
 RUN /root/bin/bazel build differential_privacy/...
 
-#RUN mkdir /diffpriv/csv_files/
-#RUN mkdir /diffpriv/logs/
-#RUN mkdir /diffpriv/users/
-#RUN mkdir /diffpriv/web/
-
 # Install all python dependencies
-#RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Make port 5002 available to the world outside this container
-#EXPOSE 5002
+EXPOSE 5002
 
 # Run app.py when the container launches
-#CMD ["python", "DiffPrivServer.py"]
+CMD ["python", "DiffPrivServer.py"]
 #CMD ["bash"]
-CMD ["/root/bin/bazel", "run", "differential_privacy/example:report_the_carrots"]
+#CMD ["/root/bin/bazel", "run", "differential_privacy/example:report_the_carrots"]

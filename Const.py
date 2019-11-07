@@ -1,12 +1,32 @@
-# ADDRESS
+# BAZEL
+BAZEL_RUN = '/root/bin/bazel run'
+#BAZEL_RUN = 'bazel run'
+
+# ADDRESS AND PORT
 #SERVER_ADDR = '172.17.0.2'
-#SERVER_ADDR = '172.25.0.2'
-SERVER_ADDR = 'localhost'
+SERVER_ADDR = '172.25.0.2'
+#SERVER_ADDR = 'localhost'
 SERVER_PORT = '5002'
 
+# DIRECTORY PATHS
+ROOT_PATH = '/diffpriv/'
+#ROOT_PATH = './'
+PARENT_DIR = '../'
+FLASK_ROOT_PATH = 'web/'
+CSV_FILES_PATH = 'csv_files/'
+USERS_LIST_PATH = 'users/'
+LOG_FILES_PATH = 'logs/'
+DIFF_PRIV_MASTER_PATH = 'differential-privacy-master/'
+DIFF_PRIV_PATH = 'differential_privacy/'
+OPERATIONS_PATH = 'operations'
+
+# FILES
+USERS = 'users_list.csv'
+LOG = 'log'
+TMP_FILE_PATH = 'data.csv'
+RESULT = 'result.csv'
+
 # ROUTES AND FIELDS
-#FLASK_ROOT_PATH = '/diffpriv/web'
-FLASK_ROOT_PATH = './web/'
 GET = 'GET'
 POST = 'POST'
 INDEX = 'index'
@@ -16,23 +36,6 @@ FILE = 'file'
 EPSILON = 'epsilon'
 ID = 'id'
 BUDGET = 'budget'
-
-# DIR_PATH AND FILES
-CSV_FILES_PATH = './csv_files/'
-#CSV_FILES_PATH = '/diffpriv/csv_files/'
-USERS_LIST_PATH = './users/'
-#USERS_LIST_PATH = '/diffpriv/users/'
-USERS = 'users_list.csv'
-LOG_FILES_PATH = './logs/'
-#LOG_FILES_PATH = '/diffpriv/logs/'
-LOG = 'log'
-TMP_FILE_PATH = 'operations/data.csv'
-#TMP_FILE_PATH = '/diffpriv/differential-privacy-master/differential_privacy/operations/data.csv'
-DIFF_PRIV_MASTER_PATH = './differential-privacy-master/'
-DIFF_PRIV_PATH = 'differential_privacy/'
-PARENT_DIR = '../'
-RESULT = 'result.csv'
-
 
 # QUERY FUNCTIONS
 COUNT = 'count'
