@@ -6,6 +6,8 @@ import FuncUtils as fu
 import QueryHandler as qh
 
 import os
+import argparse
+import json
 
 ################# FLASK SERVER #################
 app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)  # Create a Flask WSGI application
@@ -34,6 +36,19 @@ def send_csv():
         return Const.NO_METHOD
 
 
+@app.route('/' + Const.LIST, methods=[Const.GET])
+def get_csv_list():
+    if request.method == Const.GET:
+        if os.path.isdir(Const.ROOT_PATH + Const.CSV_FILES_PATH):
+            print 'dir found'
+            return json.dumps({Const.LIST: os.listdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)}), Const.OK
+        print 'not found'
+    else:
+        fu.log(fu.get_current_time() + '[' + Const.LIST + ' ' + request.method +
+               '] Received request with not allowed method\n')
+        return Const.NO_METHOD
+
+
 @app.route('/' + Const.QUERY, methods=[Const.POST])
 def send_query():
     if request.method == Const.POST:
@@ -53,7 +68,15 @@ def send_query():
 
 
 if __name__ == '__main__':
-    os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
-    os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
-    os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
-    app.run(host=Const.SERVER_ADDR, port=Const.SERVER_PORT)
+    parser = argparse.ArgumentParser(description='Flask server for differential privacy queries',
+                                     usage='DiffPrivServer.py -a [IPADDR] -p [PORT] (default: -a 17.25.0.2 -p 5002)')
+    parser.add_argument('-a', type=str, help='The IP address of the server', default='172.25.0.2')
+    parser.add_argument('-p', type=int, help='The port of the server', default=5002)
+    args = parser.parse_args()
+    if fu.is_valid_ip(args.a):
+        os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
+        os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
+        os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
+        app.run(host=args.a, port=str(args.p))
+    else:
+        print Const.INVALID_IP
