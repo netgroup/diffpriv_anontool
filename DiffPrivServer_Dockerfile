@@ -31,5 +31,5 @@ EXPOSE 5002
 WORKDIR /diffpriv
 
 # Run DiffPrivServer.py when the container launches
-CMD ["python", "DiffPrivServer.py"]
+#CMD ["python", "DiffPrivServer.py"]
 #CMD ["bash"]

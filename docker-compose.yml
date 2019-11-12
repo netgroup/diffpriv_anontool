@@ -15,7 +15,7 @@ services:
                         coprotect_network:
                                 ipv4_address: 172.25.0.2
                 entrypoint: /bin/bash
-                command: -c "python DiffPrivServer.py -a 172.25.0.2 -p 5002"
+                command: python DiffPrivServer.py -a 172.25.0.2 -p 5002
 
 networks:
         coprotect_network:

@@ -40,9 +40,7 @@ def send_csv():
 def get_csv_list():
     if request.method == Const.GET:
         if os.path.isdir(Const.ROOT_PATH + Const.CSV_FILES_PATH):
-            print 'dir found'
             return json.dumps({Const.LIST: os.listdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)}), Const.OK
-        print 'not found'
     else:
         fu.log(fu.get_current_time() + '[' + Const.LIST + ' ' + request.method +
                '] Received request with not allowed method\n')

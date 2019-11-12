@@ -27,6 +27,6 @@ RUN pip install -r requirements.txt
 EXPOSE 5002
 
 # Run app.py when the container launches
-CMD ["python", "DiffPrivServer.py", "172.25.0.2", "5002"]
+#CMD ["python", "DiffPrivServer.py", "172.25.0.2", "5002"]
 #CMD ["bash"]
 #CMD ["/root/bin/bazel", "run", "differential_privacy/example:report_the_carrots"]

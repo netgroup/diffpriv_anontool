@@ -9,8 +9,8 @@ BAZEL_RUN = '/root/bin/bazel run'
 #SERVER_PORT = '5002'
 
 # DIRECTORY PATHS
-#ROOT_PATH = '/diffpriv/'
-ROOT_PATH = './'
+ROOT_PATH = '/diffpriv/'
+#ROOT_PATH = './'
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'
@@ -24,7 +24,7 @@ OPERATIONS_PATH = 'operations'
 USERS = 'users_list.csv'
 LOG = 'log'
 TMP_FILE_PATH = 'data.csv'
-RESULT = 'result.csv'
+RESULT_PATH = '/tmp/result.csv'
 
 # ROUTES AND FIELDS
 GET = 'GET'
@@ -37,6 +37,9 @@ FILE = 'file'
 EPSILON = 'epsilon'
 ID = 'id'
 BUDGET = 'budget'
+
+# QUERY OPERATIONS
+QUERY_STATEMENTS = {'SELECT'}
 
 # QUERY FUNCTIONS
 COUNT = 'count'

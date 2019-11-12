@@ -14,26 +14,27 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
                                                                  Const.OPERATIONS_PATH, operation, epsilon, budget,
                                                                  lower, upper)], shell=True)
     os.chdir(Const.PARENT_DIR)
-    if os.path.exists(Const.RESULT):
-        data = pd.read_csv(Const.RESULT, header=None)
+    if os.path.exists(Const.RESULT_PATH):
+        data = pd.read_csv(Const.RESULT_PATH, header=None)
         # Extract results
         true_value = str(data[0].values[0])
         anon_value = str(data[1].values[0])
         fu.log(fu.get_current_time() + 'Result of ' + operation + ' has true value = ' + true_value +
                ' and anonymized value = ' + anon_value + '\n')
         # Remove result file
-        os.remove(Const.RESULT)
+        os.remove(Const.RESULT_PATH)
         return anon_value
     # Execution failed
     fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
     return Const.NO_RESULT
 
 
-# Check if operation is valid
-def check_operation(operation):
-    valid_operations = [Const.COUNT, Const.SUM, Const.AVG, Const.VAR, Const.STD_DEV, Const.MIN, Const.MAX]
-    if operation in valid_operations:
-        return True
+# Check if statement and operation are valid
+def check_operation(statement, operation):
+    if statement in Const.QUERY_STATEMENTS:
+        valid_operations = [Const.COUNT, Const.SUM, Const.AVG, Const.VAR, Const.STD_DEV, Const.MIN, Const.MAX]
+        if operation in valid_operations:
+            return True
     return False
 
 
@@ -47,16 +48,16 @@ def exec_query(file_name, query, epsilon, budget):
     # Parse query string
     items = pattern.parseString(query)
     items[1] = items[1].lower()
-    if not check_operation(items[1]):
+    if not check_operation(items[0].upper(), items[1]):
         fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
         return Const.INVALID_OPERATION
-    lower = -1000000
-    upper = 1000000
+    lower = -1000000 # TO REMOVE
+    upper = 1000000 # TO REMOVE
     # Extract data according the given column
     full_data = pd.read_csv(Const.ROOT_PATH + Const.CSV_FILES_PATH + file_name, header=0)
-    data = full_data[items[4]]
+    data = full_data[items[3]]
     if fu.is_numeric(data):
-        df = full_data[[full_data.columns[0], items[4]]]
+        df = full_data[[full_data.columns[0], items[3]]]
         df.to_csv(Const.ROOT_PATH + Const.DIFF_PRIV_MASTER_PATH + Const.DIFF_PRIV_PATH + Const.OPERATIONS_PATH + '/'
                   + Const.TMP_FILE_PATH, header=False, index=False)
         # Execute query only if data is numeric
