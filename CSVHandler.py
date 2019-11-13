@@ -6,6 +6,10 @@ import os.path
 # If file does not exist, store it in csv files directory
 def add_file(file_name):
     f = str(file_name).split('\'')[1].split('\'')[0]
+    # Check if file is a csv
+    if not f.split('.')[1] in Const.SUPPORTED_FILE_FORMAT:
+        fu.log(fu.get_current_time() + 'File ' + f + ' is not supported\n')
+        return Const.INVALID_FILE
     # Check if given file already exists
     if os.path.exists(Const.ROOT_PATH + Const.CSV_FILES_PATH + f):
         fu.log(fu.get_current_time() + 'File already exists in directory ' + Const.ROOT_PATH + Const.CSV_FILES_PATH +

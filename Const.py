@@ -1,6 +1,6 @@
 # BAZEL
-BAZEL_RUN = '/root/bin/bazel run'
-#BAZEL_RUN = 'bazel run'
+#BAZEL_RUN = '/root/bin/bazel run'
+BAZEL_RUN = 'bazel run'
 
 # ADDRESS AND PORT
 #SERVER_ADDR = '172.17.0.2'
@@ -9,8 +9,8 @@ BAZEL_RUN = '/root/bin/bazel run'
 #SERVER_PORT = '5002'
 
 # DIRECTORY PATHS
-ROOT_PATH = '/diffpriv/'
-#ROOT_PATH = './'
+#ROOT_PATH = '/diffpriv/'
+ROOT_PATH = './'
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'
@@ -55,6 +55,8 @@ OK = '200'
 BAD_REQ = '400'
 NO_METHOD = '405'
 INVALID_IP = '[ERROR] Invalid IP address!'
+INVALID_FILE = '[ERROR] Invalid file: expected csv file!'
+FILE_NOT_EXIST = '[ERROR] File does not exist!'
 NO_NUMERIC = '[ERROR] In csv file there are no numeric columns!'
 FILE_EXIST = '[ERROR] File already uploaded!'
 NO_BUDGET = '[ERROR] This user has not enough remaining budget!'
@@ -67,3 +69,5 @@ STARTING_BUDGET = 1
 QUERY_BUDGET = .25
 
 INFINITY = 'inf'
+
+SUPPORTED_FILE_FORMAT = {'csv'}

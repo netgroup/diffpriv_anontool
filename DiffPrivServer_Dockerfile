@@ -1,7 +1,23 @@
 FROM python:2.7
 
-COPY . ./diffpriv
+# Copy needed files
+COPY ./differential-privacy-master/differential_privacy /diffpriv/differential-privacy-master/differential_privacy
+COPY ./differential-privacy-master/BUILD /diffpriv/differential-privacy-master
+COPY ./differential-privacy-master/CONTRIBUTING.md /diffpriv/differential-privacy-master
+COPY ./differential-privacy-master/differential_privacy_deps.bzl /diffpriv/differential-privacy-master
+COPY ./differential-privacy-master/LICENSE /diffpriv/differential-privacy-master
+COPY ./differential-privacy-master/README.md /diffpriv/differential-privacy-master
+COPY ./differential-privacy-master/WORKSPACE /diffpriv/differential-privacy-master
+COPY ./web /diffpriv/web
+COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
+COPY ./Const.py /diffpriv
+COPY ./CSVHandler.py /diffpriv
+COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
+COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
+COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
+COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
 
+# Change diretory
 WORKDIR /diffpriv
 
 RUN mkdir /diffpriv/csv_files/

@@ -51,8 +51,8 @@ def exec_query(file_name, query, epsilon, budget):
     if not check_operation(items[0].upper(), items[1]):
         fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
         return Const.INVALID_OPERATION
-    lower = -1000000 # TO REMOVE
-    upper = 1000000 # TO REMOVE
+    lower = -1000000    # TO REMOVE
+    upper = 1000000     # TO REMOVE
     # Extract data according the given column
     full_data = pd.read_csv(Const.ROOT_PATH + Const.CSV_FILES_PATH + file_name, header=0)
     data = full_data[items[3]]
@@ -68,6 +68,10 @@ def exec_query(file_name, query, epsilon, budget):
 
 # Check if user can execute the query
 def check_query(user, file_name, query, epsilon):
+    # Check if file for query exists
+    if not os.path.exists(Const.ROOT_PATH + Const.CSV_FILES_PATH + file_name):
+        fu.log(fu.get_current_time() + 'User ' + user + ' made a query on ' + file_name + ' that does not exist\n')
+        return Const.FILE_NOT_EXIST
     # Check if users list file exists
     if os.path.exists(Const.ROOT_PATH + Const.USERS_LIST_PATH + Const.USERS):
         data = pd.read_csv(Const.ROOT_PATH + Const.USERS_LIST_PATH + Const.USERS, header=0)

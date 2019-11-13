@@ -39,6 +39,7 @@ def send_csv():
 @app.route('/' + Const.LIST, methods=[Const.GET])
 def get_csv_list():
     if request.method == Const.GET:
+        # Check if there are csv files
         if os.path.isdir(Const.ROOT_PATH + Const.CSV_FILES_PATH):
             return json.dumps({Const.LIST: os.listdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)}), Const.OK
     else:
