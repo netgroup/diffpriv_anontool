@@ -1,6 +1,6 @@
 # BAZEL
-#BAZEL_RUN = '/root/bin/bazel run'
-BAZEL_RUN = 'bazel run'
+BAZEL_RUN = '/root/bin/bazel run'
+#BAZEL_RUN = 'bazel run'
 
 # ADDRESS AND PORT
 #SERVER_ADDR = '172.17.0.2'
@@ -9,8 +9,8 @@ BAZEL_RUN = 'bazel run'
 #SERVER_PORT = '5002'
 
 # DIRECTORY PATHS
-#ROOT_PATH = '/diffpriv/'
-ROOT_PATH = './'
+ROOT_PATH = '/diffpriv/'
+#ROOT_PATH = './'
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'

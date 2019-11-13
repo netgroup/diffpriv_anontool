@@ -73,9 +73,9 @@ if __name__ == '__main__':
     parser.add_argument('-p', type=int, help='The port of the server', default=5002)
     args = parser.parse_args()
     if fu.is_valid_ip(args.a):
-        os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
-        os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
-        os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
+        #os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
+        #os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
+        #os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
         app.run(host=args.a, port=str(args.p))
     else:
         print Const.INVALID_IP

@@ -12,10 +12,11 @@ COPY ./web /diffpriv/web
 COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
 COPY ./Const.py /diffpriv
 COPY ./CSVHandler.py /diffpriv
-COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
-COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
-COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
-COPY ./bazel-1.0.1-installer-linux-x86_64.sh /diffpriv
+COPY ./DiffPrivServer.py /diffpriv
+COPY ./FuncUtils.py /diffpriv
+COPY ./QueryHandler.py /diffpriv
+COPY ./README.txt /diffpriv
+COPY ./requirements.txt /diffpriv
 
 # Change diretory
 WORKDIR /diffpriv
@@ -42,7 +43,7 @@ WORKDIR /diffpriv/differential-privacy-master/
 RUN /root/bin/bazel build differential_privacy/...
 
 # Make port 5002 available to the world outside this container
-EXPOSE 5002
+#EXPOSE 5002
 
 WORKDIR /diffpriv
 
