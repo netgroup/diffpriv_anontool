@@ -15,3 +15,13 @@ Follow these steps to launch docker containers for simulate application:
 
 5) To shutdown containers with docker-compose use command:
 	- docker-compose down
+
+Possible Errors
+
+1. ERROR: for diffprivtool_diff_priv_server_1
+   Cannot start service diff_priv_server: driver failed programming external connectivity on endpoint
+   diffprivtool_diff_priv_server_1 (...):
+   Error starting userland proxy: listen tcp 0.0.0.0:5002: bind: address already in use
+
+   SOLUTION: - on host command line, type "lsof -i :5002"
+                - if some process is using the port, type "kill [PID]" to kill it

@@ -24,8 +24,8 @@ WORKDIR /diffpriv
 RUN mkdir /diffpriv/csv_files/
 RUN mkdir /diffpriv/logs/
 RUN mkdir /diffpriv/users/
-#RUN mkdir /diffpriv/web/
 
+# Install necessary programs
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y pkg-config zip g++ zlib1g-dev unzip python3 git flex bison libreadline-dev
 
@@ -36,17 +36,10 @@ RUN pip install -r requirements.txt
 RUN chmod +x bazel-1.0.1-installer-linux-x86_64.sh
 RUN ./bazel-1.0.1-installer-linux-x86_64.sh --user
 ENV PATH="$HOME/bin/:${PATH}"
-#RUN cd differential-privacy-master/
 
 WORKDIR /diffpriv/differential-privacy-master/
 
+# Build Google bazel project
 RUN /root/bin/bazel build differential_privacy/...
 
-# Make port 5002 available to the world outside this container
-#EXPOSE 5002
-
 WORKDIR /diffpriv
-
-# Run DiffPrivServer.py when the container launches
-#CMD ["python", "DiffPrivServer.py"]
-#CMD ["bash"]

@@ -2,12 +2,6 @@
 BAZEL_RUN = '/root/bin/bazel run'
 #BAZEL_RUN = 'bazel run'
 
-# ADDRESS AND PORT
-#SERVER_ADDR = '172.17.0.2'
-#SERVER_ADDR = '172.25.0.2'
-#SERVER_ADDR = 'localhost'
-#SERVER_PORT = '5002'
-
 # DIRECTORY PATHS
 ROOT_PATH = '/diffpriv/'
 #ROOT_PATH = './'
@@ -31,7 +25,7 @@ GET = 'GET'
 POST = 'POST'
 INDEX = 'index'
 SEND_CSV = 'send_csv'
-LIST = 'get_list'
+LIST = 'list'
 QUERY = 'query'
 FILE = 'file'
 EPSILON = 'epsilon'
@@ -51,18 +45,19 @@ MIN = 'min'
 MAX = 'max'
 
 # STATUS AND ERROR
-OK = '200'
-BAD_REQ = '400'
-NO_METHOD = '405'
-INVALID_IP = '[ERROR] Invalid IP address!'
-INVALID_FILE = '[ERROR] Invalid file: expected csv file!'
-FILE_NOT_EXIST = '[ERROR] File does not exist!'
-NO_NUMERIC = '[ERROR] In csv file there are no numeric columns!'
-FILE_EXIST = '[ERROR] File already uploaded!'
-NO_BUDGET = '[ERROR] This user has not enough remaining budget!'
-NO_NUMERIC_QUERY = '[ERROR] Given query is on non-numeric data!'
-INVALID_OPERATION = '[ERROR] Invalid operation!'
-NO_RESULT = '[ERROR] Invalid operation result!'
+OK = 200
+BAD_REQ = ['Bad request', 400]
+NO_METHOD = ['Method not allowed', 405]
+INVALID_IP = ['[ERROR] Invalid IP address!', 500]
+INVALID_FILE = ['[ERROR] Invalid file: expected csv file!', 500]
+FILE_NOT_EXIST = ['[ERROR] File does not exist!', 500]
+NO_NUMERIC = ['[ERROR] In csv file there are no numeric columns!', 500]
+FILE_EXIST = ['[ERROR] File already uploaded!', 500]
+NO_BUDGET = ['[ERROR] This user has not enough remaining budget!', 500]
+NO_NUMERIC_QUERY = ['[ERROR] Given query is on non-numeric data!', 500]
+INVALID_OPERATION = ['[ERROR] Invalid operation!', 500]
+NO_RESULT = ['[ERROR] Invalid operation result!', 500]
+NO_CSV_DIR = ['[ERROR] Directory of .csv files does not exist', 500]
 
 # BUDGET
 STARTING_BUDGET = 1

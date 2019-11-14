@@ -23,7 +23,7 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
                ' and anonymized value = ' + anon_value + '\n')
         # Remove result file
         os.remove(Const.RESULT_PATH)
-        return anon_value
+        return anon_value, Const.OK
     # Execution failed
     fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
     return Const.NO_RESULT

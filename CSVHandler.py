@@ -23,4 +23,4 @@ def add_file(file_name):
         fu.log(fu.get_current_time() + 'File has no numeric columns and it can\'t be stored\n')
         return Const.NO_NUMERIC
     fu.log(fu.get_current_time() + 'File stored in directory ' + Const.ROOT_PATH + Const.CSV_FILES_PATH + '\n')
-    return Const.OK
+    return 'File stored!', Const.OK
