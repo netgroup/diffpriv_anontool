@@ -1,4 +1,5 @@
 from datetime import datetime
+from pyparsing import Word, alphas, alphanums, nums
 
 import Const
 import pandas as pd
@@ -37,3 +38,61 @@ def is_valid_ip(ip):
         return res
     except ValueError:
         return False
+
+
+# Parse the given query
+def parse_query(query):
+    # Create query grammar
+    statement = Word(alphas)
+    operation = Word(alphas)
+    column = Word(alphanums)
+    # Check if there is a WHERE clause to set bounds to values
+    if 'where' in query or 'WHERE' in query:
+        where = Word(alphas)
+        if '>' in query:
+            lower = Word(nums)
+            if '<' in query:
+                and_op = Word(alphas)
+                upper = Word(nums)
+                if query.find('>') < query.find('<'):
+                    pattern = statement + operation + '(' + column + ')' + where + column + '>' + lower + and_op + \
+                              column + '<' + upper
+                else:
+                    pattern = statement + operation + '(' + column + ')' + where + column + '<' + lower + and_op + \
+                              column + '>' + upper
+            else:
+                pattern = statement + operation + '(' + column + ')' + where + column + '>' + lower
+        else:
+            if '<' in query:
+                upper = Word(nums)
+                pattern = statement + operation + '(' + column + ')' + where + column + '<' + upper
+            else:
+                pattern = statement + operation + '(' + column + ')'
+    else:
+        pattern = statement + operation + '(' + column + ')'
+    # Parse query string
+    items = pattern.parseString(query)
+    print 'parsed items:', items
+    statement = items[0]
+    operation = items[1]
+    column = items[3]
+    if len(items) == 9:
+        if '>' in query:
+            lower = items[8]
+            upper = Const.UPPER_BOUND
+        else:
+            lower = Const.LOWER_BOUND
+            upper = items[8]
+    else:
+        if len(items) == 13:
+            if query.find('>') < query.find('<'):
+                lower = items[8]
+                upper = items[12]
+            else:
+                lower = items[12]
+                upper = items[8]
+        else:
+            lower = Const.LOWER_BOUND
+            upper = Const.UPPER_BOUND
+    print statement, operation, column, float(lower), float(upper)
+    return statement, operation, column, float(lower), float(upper)

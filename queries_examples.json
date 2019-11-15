@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "467f1f5c-e5f0-4ba4-b6f9-dc905885af11",
+		"name": "DiffPrivTool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AnonTool send_csv",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/serse/PycharmProjects/diffpriv_anontool/data.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5002/send_csv",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"send_csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AnonTool query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"id_3\",\n    \"file\": \"data.csv\",\n    \"epsilon\": \"1\",\n    \"query\": \"SELECT sum(age) WHERE age > 10 AND age < 100\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5002/query",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AnonTool get_list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5002/list",
+					"host": [
+						"localhost"
+					],
+					"port": "5002",
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

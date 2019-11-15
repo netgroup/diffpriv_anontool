@@ -1,3 +1,28 @@
+This project implements a Web service to provide anonimyzed queries on statistical data. In particular, when deployed it
+allows to upload files on which users can make queries.
+
+FILE REQUIREMENTS:
+- file extension MUST be .csv
+- each entry MUST have a UNIQUE ID (multiple occurences of the same ID are not allowed)
+- there MUST be AT LEAST a numeric column on which it is possible to compute queries
+An example can be found in "differential-privacy-master/differential-privacy/operations/data.csv"
+
+QUERIES REQUIREMENTS:
+- only SELECT queries are supported with single statistical operations. Allowed operations are the followings:
+    - COUNT
+    - SUM
+    - AVG
+    - VAR
+    - STDEV
+    - MAX
+    - MIN
+- only operations on a single column are permitted and the choosen column must contain only numbers
+- it is possible to set lower and upper bounds in WHERE clause
+Some examples can be found in "queries_examples.json"
+
+
+################ BUILD ################
+
 Follow these steps to launch docker containers for simulate application:
 
 1) Install docker
@@ -16,7 +41,8 @@ Follow these steps to launch docker containers for simulate application:
 5) To shutdown containers with docker-compose use command:
 	- docker-compose down
 
-Possible Errors
+
+POSSIBLE ERRORS
 
 1. ERROR: for diffprivtool_diff_priv_server_1
    Cannot start service diff_priv_server: driver failed programming external connectivity on endpoint

@@ -1,5 +1,3 @@
-from pyparsing import Word, alphas
-
 import Const
 import FuncUtils as fu
 import pandas as pd
@@ -25,7 +23,7 @@ def exec_query_operation(operation, epsilon, budget, lower, upper):
         os.remove(Const.RESULT_PATH)
         return anon_value, Const.OK
     # Execution failed
-    fu.log(fu.get_current_time() + Const.NO_RESULT + '\n')
+    fu.log(fu.get_current_time() + Const.NO_RESULT[0] + '\n')
     return Const.NO_RESULT
 
 
@@ -38,31 +36,29 @@ def check_operation(statement, operation):
     return False
 
 
-# Parse query and execute it
+# Try to execute the given query
 def exec_query(file_name, query, epsilon, budget):
-    # Create query grammar
-    statement = Word(alphas)
-    operation = Word(alphas)
-    column = Word(alphas)
-    pattern = statement + operation + '(' + column + ')'
-    # Parse query string
-    items = pattern.parseString(query)
-    items[1] = items[1].lower()
-    if not check_operation(items[0].upper(), items[1]):
-        fu.log(fu.get_current_time() + Const.INVALID_OPERATION + '\n')
+    # Parse the query
+    statement, operation, column, lower, upper = fu.parse_query(query)
+    operation = operation.lower()
+    # Check if operation is valid
+    if not check_operation(statement.upper(), operation):
+        fu.log(fu.get_current_time() + Const.INVALID_OPERATION[0] + '\n')
         return Const.INVALID_OPERATION
-    lower = -1000000    # TO REMOVE
-    upper = 1000000     # TO REMOVE
+    if lower > upper:
+        fu.log(fu.get_current_time() + Const.INVALID_BOUNDS[0] + '\n')
+        return Const.INVALID_BOUNDS
     # Extract data according the given column
     full_data = pd.read_csv(Const.ROOT_PATH + Const.CSV_FILES_PATH + file_name, header=0)
-    data = full_data[items[3]]
+    data = full_data[column]
+    # Check if data to use is numeric
     if fu.is_numeric(data):
-        df = full_data[[full_data.columns[0], items[3]]]
+        df = full_data[[full_data.columns[0], column]]
         df.to_csv(Const.ROOT_PATH + Const.DIFF_PRIV_MASTER_PATH + Const.DIFF_PRIV_PATH + Const.OPERATIONS_PATH + '/'
                   + Const.TMP_FILE_PATH, header=False, index=False)
-        # Execute query only if data is numeric
-        return exec_query_operation(items[1], epsilon, budget, lower, upper)
-    fu.log(fu.get_current_time() + Const.NO_NUMERIC_QUERY + '\n')
+        # Execute query
+        return exec_query_operation(operation, epsilon, budget, lower, upper)
+    fu.log(fu.get_current_time() + Const.NO_NUMERIC_QUERY[0] + '\n')
     return Const.NO_NUMERIC_QUERY
 
 

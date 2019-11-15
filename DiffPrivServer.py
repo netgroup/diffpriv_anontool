@@ -84,6 +84,7 @@ class Query(Resource):
     @api.response(Const.FILE_NOT_EXIST[1], Const.FILE_NOT_EXIST[0])
     @api.response(Const.NO_BUDGET[1], Const.NO_BUDGET[0])
     @api.response(Const.INVALID_OPERATION[1], Const.INVALID_OPERATION[0])
+    @api.response(Const.INVALID_BOUNDS[1], Const.INVALID_BOUNDS[0])
     @api.response(Const.NO_NUMERIC_QUERY[1], Const.NO_NUMERIC_QUERY[0])
     @api.response(Const.NO_RESULT[1], Const.NO_RESULT[0])
     def post(self):
@@ -103,10 +104,11 @@ class Query(Resource):
         return result[0], result[1]
 
 
+# Initialize application creating necessary folders and configuring server
 def initialize_app(flask_app):
-    #os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
-    #os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
-    #os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
+    os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
     api_blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(api_blueprint)
     api.add_namespace(ns)
