@@ -1,5 +1,10 @@
-This project implements a Web service to provide anonimyzed queries on statistical data. In particular, when deployed it
-allows to upload files on which users can make queries.
+This project implements a Web service to provide anonymized queries on statistical data. In particular, when deployed,
+it allows to upload files on which users can make queries. It provides a Web interface to make use of Google C++ library
+"differential-privacy" (https://github.com/google/differential-privacy).
+
+SYSTEM REQUIREMENTS:
+- Architecture: 64-bit host or virtual machine
+- OS:           Linux
 
 FILE REQUIREMENTS:
 - file extension MUST be .csv
@@ -31,7 +36,8 @@ Follow these steps to launch docker containers for simulate application:
 
 3) Open terminal and place in project folder
 
-3.1) (OPTIONAL) In order to change server IP address and port in the container, modify "diff_priv_server" fields in docker-compose.yml
+3.1) (OPTIONAL) In order to change server IP address and port in the container, modify "diff_priv_server" fields in
+    docker-compose.yml
     - in DiffPrivServer.py defaults are set to 172.25.0.2:5002
 
 4) To create containers with docker-compose use command:

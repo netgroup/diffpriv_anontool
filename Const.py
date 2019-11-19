@@ -1,10 +1,10 @@
 # BAZEL
-#BAZEL_RUN = '/root/bin/bazel run'
-BAZEL_RUN = 'bazel run'
+BAZEL_RUN = '/root/bin/bazel run'
+#BAZEL_RUN = 'bazel run'
 
 # DIRECTORY PATHS
-#ROOT_PATH = '/diffpriv/'
-ROOT_PATH = './'
+ROOT_PATH = '/diffpriv/'
+#ROOT_PATH = './'
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'
