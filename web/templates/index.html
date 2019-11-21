@@ -9,42 +9,23 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" href="../static/apple-touch-icon.png">
+        <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
 
+<!--        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
         <style>
             body {
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
-            #encrypt-dropzone {
+            #upload-dropzone {
               width: 100%; 
-              height: 250px;
+              height: 300px;
               border : 3px #AAA dashed;
               background: url("{{ url_for('static', filename='img/download.png') }}");
               background-size: contain;
               background-repeat: no-repeat;
               background-position: center;
-            }
-            #decrypt-dropzone {
-              width: 100%;
-              height: 250px;
-              border : 3px #AAA dashed;
-              background: url("{{ url_for('static', filename='img/download.png') }}");
-              background-size: contain;
-              background-repeat: no-repeat;
-              background-position: center;
-            }
-            #log {
-              width: 100%;
-              height: 280px;
-              overflow: auto;
-              font-size: smaller;
-            }
-            #show-log {
-              position: relative;
-              left: 10px;
-              top: 20px;
             }
         </style>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
@@ -67,7 +48,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Coprotect</a>
+          <a class="navbar-brand" href="#">DiffPrivTool</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
         </div><!--/.navbar-collapse -->
@@ -77,10 +58,10 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Coprotect</h1>
-        <p>A novel architecture to protect the cryptography keys in cloud systems that leverage on the cooperation
-            between the cloud provider and the customer company. It takes part in the European BPR4GDPR project.</p>
-        <p><a class="btn btn-primary btn-lg" href="http://www.bpr4gdpr.eu/" role="button">About BPR4GDPR &raquo;</a></p>
+        <h1>DiffPrivTool</h1>
+        <p>A Web service to provide anonymized queries on statistical data. It allows to upload files on which users can
+            make queries. It provides a Web interface to make use of Google C++ library "differential-privacy".</p>
+        <p><a class="btn btn-primary btn-lg" href="https://github.com/google/differential-privacy" role="button">Google Library &raquo;</a></p>
 
 <!--        <p><a class="btn btn-info btn-lg" id="show-log" role="button">Show log</a></p>-->
 
@@ -90,44 +71,44 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-3">
-          <h2>Drop file below to encrypt</h2>
-          <form action="UploadImages"
-                class="dropzone"
-                id="encrypt-dropzone" enctype="multipart/form-data">
-          </form>
-          <div id="encrypt-dropzone-previews"></div>
-        </div>
-
-        <div class="col-md-3">
-          <h2>Drop file below to decrypt</h2>
-          <form action="UploadImages"
-                class="dropzone"
-                id="decrypt-dropzone" enctype="multipart/form-data">
-          </form>
-          <div id="decrypt-dropzone-previews"></div>
-        </div>
-
         <div class="col-md-6">
-          <div class="row">
-              <h2 id="log-label">Log</h2>
-              <div id="log">
-                  <ul>
-                      <li>Log will be shown after first encryption/decryption operation.</li>
-                  </ul>
-              </div>
-          </div>
-        </div>
-        <div class="row">
-          <p><a class="btn btn-info btn-lg" id="show-log" role="button">Show log</a></p>
+          <h2>Upload csv file</h2>
+          <form action="UploadImages"
+                class="dropzone"
+                id="upload-dropzone" enctype="multipart/form-data">
+          </form>
+          <div id="upload-dropzone-previews"></div>
         </div>
 
+        <div class="col-md-3">
+            <form>
+                  <h4>Username</h4>
+                  <input type="text" id="id" required="Username is required!"><br>
+                  <h4>File</h4>
+                  <input type="text" id="file" required="File is required!"><br>
+                  <h4>Query</h4>
+                  <input type="text" id="query" required="Query is required!"><br>
+                  <h4>Epsilon</h4>
+                  <input type="text" id="epsilon" value="1.0"><br>
+            </form>
+            <div><br></div>
+            <p><a class="btn btn-info btn-lg" id="send_query" role="button">Send query</a></p>
+        </div>
+
+        <div class="col-md-3">
+              <h2>Result</h2>
+              <div id="result">
+                      <ul>
+                          <li>The result will be shown after query execution.</li>
+                      </ul>
+              </div>
+        </div>
       </div>
 
       <hr>
 
       <footer>
-        <p><img src="{{ url_for('static', filename='img/bpr4gdpr_logo.png') }}" /> University of Rome "Tor Vergata"</p>
+        <p><img src="{{ url_for('static', filename='img/uni_logo.png') }}" /> University of Rome "Tor Vergata"</p>
       </footer>
     </div> <!-- /container -->        
         <script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"></script>

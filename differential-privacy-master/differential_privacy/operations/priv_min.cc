@@ -72,7 +72,7 @@ int main(int argc, char **argv) {
     CHECK(absl::SimpleAtod(argv[3], &lower));
     CHECK(absl::SimpleAtod(argv[4], &upper));
     Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
-    std::ofstream file("/home/serse/PycharmProjects/DiffPrivTool/result.csv");
+    std::ofstream file("/tmp/result.csv");
     if (file.is_open()) {
       // Create an object containing true and private min values
       std::string true_val = absl::StrFormat("%f", op.Min(lower, upper));

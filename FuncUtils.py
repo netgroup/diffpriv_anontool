@@ -72,7 +72,6 @@ def parse_query(query):
         pattern = statement + operation + '(' + column + ')'
     # Parse query string
     items = pattern.parseString(query)
-    print 'parsed items:', items
     statement = items[0]
     operation = items[1]
     column = items[3]
@@ -94,5 +93,4 @@ def parse_query(query):
         else:
             lower = Const.LOWER_BOUND
             upper = Const.UPPER_BOUND
-    print statement, operation, column, float(lower), float(upper)
     return statement, operation, column, float(lower), float(upper)

@@ -11,7 +11,8 @@ import argparse
 import json
 
 ################# FLASK SERVER #################
-app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)  # Create a Flask WSGI application
+#app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)
+app = Flask(__name__, template_folder="web/templates", static_folder="web/static")
 api = Api(app)
 
 ns = api.namespace('', description='APIs to communicate with server')
@@ -26,15 +27,9 @@ query_parser.add_argument(Const.EPSILON, type=float)
 query_parser.add_argument(Const.QUERY, type=str)
 
 
-@ns.route('/index')
-class Index(Resource):
-
-    def get(self):
-        """
-        Show index page
-        :return: Index page
-        """
-        return render_template(Const.INDEX + '.html')
+@app.route('/' + Const.INDEX, methods=['GET'])
+def index():
+    return render_template(Const.INDEX + '.html')
 
 
 @ns.route('/' + Const.SEND_CSV)
@@ -51,11 +46,12 @@ class SendCSV(Resource):
         :return: Success or fail
         """
         # Get file from request content
-        file_name = request.files[Const.FILE]
+        fin = request.files[Const.FILE + '[0]']
+        file_name = str(fin).split('\'')[1].split('\'')[0]
         fu.log(fu.get_current_time() + '[' + Const.SEND_CSV + ' ' + request.method +
-               '] Received request to store csv file:' + str(file_name) + '\n')
+               '] Received request to store csv file:' + file_name + '\n')
         # Store file
-        result = csvh.add_file(file_name)
+        result = csvh.add_file(fin, file_name)
         return result[0], result[1]
 
 
@@ -106,9 +102,9 @@ class Query(Resource):
 
 # Initialize application creating necessary folders and configuring server
 def initialize_app(flask_app):
-    os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
-    os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
-    os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
+    #os.mkdir(Const.ROOT_PATH + Const.LOG_FILES_PATH)
+    #os.mkdir(Const.ROOT_PATH + Const.CSV_FILES_PATH)
+    #os.mkdir(Const.ROOT_PATH + Const.USERS_LIST_PATH)
     api_blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(api_blueprint)
     api.add_namespace(ns)

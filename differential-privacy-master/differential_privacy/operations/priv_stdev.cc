@@ -77,7 +77,7 @@ int main(int argc, char **argv) {
     if (!stdev_status.ok()) {
       return 1;
     }
-    std::ofstream file("/home/serse/PycharmProjects/DiffPrivTool/result.csv");
+    std::ofstream file("/tmp/result.csv");
     if (file.is_open()) {
       std::string true_val = absl::StrFormat("%f", op.StandardDeviation(lower, upper));
       std::string priv_val = absl::StrFormat("%f", GetValue<double>(stdev_status.ValueOrDie().elements(0).value()));
