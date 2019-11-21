@@ -57,3 +57,7 @@ POSSIBLE ERRORS
 
    SOLUTION: - on host command line, type "lsof -i :5002"
                 - if some process is using the port, type "kill [PID]" to kill it
+
+2. EXISTING FILES
+   In order to remove existing files (.csv, logs, users_list) from host machine, delete "diffpriv_server" folder in
+   /var/lib/docker/volumes/
