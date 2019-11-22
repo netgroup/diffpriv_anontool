@@ -36,6 +36,22 @@ def check_operation(statement, operation):
     return False
 
 
+# Clamp values according limits
+def clamp(lower, upper):
+    if lower > upper:
+        return Const.INVALID_BOUNDS
+    # Clamp bounds if they are out of limits
+    if lower < Const.LOWER_BOUND:
+        lower = Const.LOWER_BOUND
+    if lower > Const.UPPER_BOUND:
+        return Const.INVALID_BOUNDS
+    if upper > Const.UPPER_BOUND:
+        upper = Const.UPPER_BOUND
+    if upper < Const.LOWER_BOUND:
+        return Const.INVALID_BOUNDS
+    return lower, upper
+
+
 # Try to execute the given query
 def exec_query(file_name, query, epsilon, budget):
     # Parse the query
@@ -45,7 +61,9 @@ def exec_query(file_name, query, epsilon, budget):
     if not check_operation(statement.upper(), operation):
         fu.log(fu.get_current_time() + Const.INVALID_OPERATION[0] + '\n')
         return Const.INVALID_OPERATION
-    if lower > upper:
+    # Check given bounds and clamp if they are out of limits
+    lower, upper = clamp(lower, upper)
+    if lower == Const.INVALID_BOUNDS[0]:
         fu.log(fu.get_current_time() + Const.INVALID_BOUNDS[0] + '\n')
         return Const.INVALID_BOUNDS
     # Extract data according the given column

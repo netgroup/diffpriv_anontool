@@ -11,8 +11,8 @@ import argparse
 import json
 
 ################# FLASK SERVER #################
-#app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)
-app = Flask(__name__, template_folder="web/templates", static_folder="web/static")
+app = Flask(__name__, root_path=Const.ROOT_PATH + Const.FLASK_ROOT_PATH)
+#app = Flask(__name__, template_folder="web/templates", static_folder="web/static")
 api = Api(app)
 
 ns = api.namespace('', description='APIs to communicate with server')

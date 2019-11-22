@@ -28,8 +28,7 @@ document.getElementById('send_query').addEventListener('click', function() {
       document.getElementById('result').value = 'Invalid epsilon!';
     } else {
       var xmlhttp = new XMLHttpRequest();
-      //var url = 'http://localhost:5002/query';
-      var url = 'http://172.25.0.2:5002/query'
+      var url = '/query';
       var data = JSON.stringify({
           'id':document.getElementById('id').value,
           'file':document.getElementById('file').value,

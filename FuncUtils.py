@@ -34,7 +34,8 @@ def has_numeric_columns(file_name):
 # Check if IP address is valid
 def is_valid_ip(ip):
     try:
-        res = (ip.count('.') == 3 or ip.count('.') == 5) and all(0 <= int(num) < 256 for num in ip.rstrip().split('.')) or ip == 'localhost'
+        res = (ip.count('.') == 3 or ip.count('.') == 5) and all(0 <= int(num) < 256 for num in ip.rstrip().split('.')) \
+              or ip == 'localhost'
         return res
     except ValueError:
         return False
@@ -50,10 +51,10 @@ def parse_query(query):
     if 'where' in query or 'WHERE' in query:
         where = Word(alphas)
         if '>' in query:
-            lower = Word(nums)
+            lower = Word(nums + '-')
             if '<' in query:
                 and_op = Word(alphas)
-                upper = Word(nums)
+                upper = Word(nums + '-')
                 if query.find('>') < query.find('<'):
                     pattern = statement + operation + '(' + column + ')' + where + column + '>' + lower + and_op + \
                               column + '<' + upper
@@ -64,7 +65,7 @@ def parse_query(query):
                 pattern = statement + operation + '(' + column + ')' + where + column + '>' + lower
         else:
             if '<' in query:
-                upper = Word(nums)
+                upper = Word(nums + '-')
                 pattern = statement + operation + '(' + column + ')' + where + column + '<' + upper
             else:
                 pattern = statement + operation + '(' + column + ')'

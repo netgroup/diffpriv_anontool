@@ -10,6 +10,7 @@ FILE REQUIREMENTS:
 - file extension MUST be .csv
 - each entry MUST have a UNIQUE ID (multiple occurences of the same ID are not allowed)
 - there MUST be AT LEAST a numeric column on which it is possible to compute queries
+- numeric values and bounds MUST be in range [-100000000, 100000000]
 An example can be found in "differential-privacy-master/differential-privacy/operations/data.csv"
 
 QUERIES REQUIREMENTS:
