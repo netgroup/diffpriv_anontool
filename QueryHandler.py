@@ -72,6 +72,9 @@ def exec_query(file_name, query, epsilon, budget):
     # Check if data to use is numeric
     if fu.is_numeric(data):
         df = full_data[[full_data.columns[0], column]]
+        print 'pre-filter:', df
+        df = df.loc[(df[column] >= lower) & (df[column] <= upper)]
+        print 'post-filter:', df
         df.to_csv(Const.ROOT_PATH + Const.DIFF_PRIV_MASTER_PATH + Const.DIFF_PRIV_PATH + Const.OPERATIONS_PATH + '/'
                   + Const.TMP_FILE_PATH, header=False, index=False)
         # Execute query

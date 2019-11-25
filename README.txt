@@ -1,6 +1,6 @@
 This project implements a Web service to provide anonymized queries on statistical data. In particular, when deployed,
-it allows to upload files on which users can make queries. It provides a Web interface to make use of Google C++ library
-"differential-privacy" (https://github.com/google/differential-privacy).
+through HTTP requests, it allows to upload files on which users can make queries. It provides a Web interface to make
+use of Google C++ library "differential-privacy" (https://github.com/google/differential-privacy).
 
 SYSTEM REQUIREMENTS:
 - Architecture: 64-bit host or virtual machine
@@ -45,7 +45,15 @@ Follow these steps to launch docker containers for simulate application:
 	- docker-compose up -d --build                          (ONLY FOR FIRST RUN)
 	- docker-compose up -d --build --force-recreate -t 0
 
-5) To shutdown containers with docker-compose use command:
+4.1) If docker raises some errors:
+    - retry command using sudo
+    - type on terminal "sudo service docker start" and retry command
+
+5) Open the browser and choose to go to:
+    - 172.25.0.2:5002 to see all the available HTTP routes
+    - 172.25.0.2:5002/index to use the tool
+
+6) To shutdown containers with docker-compose use command:
 	- docker-compose down
 
 

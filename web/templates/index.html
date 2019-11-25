@@ -96,10 +96,19 @@
         </div>
 
         <div class="col-md-3">
+              <h2>Hints</h2>
+              <div id="hints">
+                      <ul>
+                          <li>Username: the id used to make the queries (at most 4 for a given username)</li>
+                          <li>File: the file on which execute the query</li>
+                          <li>Query: a SQL-like query with statement = SELECT, operation = count, sum, avg, var, stdev, min, max, WHERE clause for bounds</li>
+                          <li>Epsilon: the epsilon value for differential privacy (smaller means more privacy but less accuracy)</li>
+                      </ul>
+              </div>
               <h2>Result</h2>
               <div id="result">
                       <ul>
-                          <li>The result will be shown after query execution.</li>
+                          The result will be shown after query execution.
                       </ul>
               </div>
         </div>
@@ -108,7 +117,7 @@
       <hr>
 
       <footer>
-        <p><img src="{{ url_for('static', filename='img/uni_logo.png') }}" /> University of Rome "Tor Vergata"</p>
+        <p><img src="{{ url_for('static', filename='img/bpr4gdpr_logo.png') }}" /> University of Rome "Tor Vergata"</p>
       </footer>
     </div> <!-- /container -->        
         <script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"></script>
