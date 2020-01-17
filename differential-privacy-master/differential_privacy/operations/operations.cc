@@ -117,8 +117,8 @@ base::StatusOr<Output> Operator::PrivateSum(double privacy_budget, double lower,
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedSum<double>> sum_algorithm,
                    BoundedSum<double>::Builder()
                        .SetEpsilon(epsilon_)
-                       .SetLower(lower) // default = 0
-                       .SetUpper(upper) // default = 150
+                       //.SetLower(lower) // default = 0
+                       //.SetUpper(upper) // default = 150
                        .Build());
   for (const auto& pair : value_per_key_) {
     sum_algorithm->AddEntry(pair.second);
@@ -130,8 +130,8 @@ base::StatusOr<Output> Operator::PrivateMean(double privacy_budget, double lower
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedMean<double>> mean_algorithm,
                    BoundedMean<double>::Builder()
                        .SetEpsilon(epsilon_)
-                       .SetLower(lower) // default = 0
-                       .SetUpper(upper) // default = 150
+                       //.SetLower(lower) // default = 0
+                       //.SetUpper(upper) // default = 150
                        .Build());
   for (const auto& pair : value_per_key_) {
     mean_algorithm->AddEntry(pair.second);
@@ -143,8 +143,8 @@ base::StatusOr<Output> Operator::PrivateVariance(double privacy_budget, double l
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedVariance<double>> variance_algorithm,
                    BoundedVariance<double>::Builder()
                        .SetEpsilon(epsilon_)
-                       .SetLower(lower) // default = 0
-                       .SetUpper(upper) // default = 150
+                       //.SetLower(lower) // default = 0
+                       //.SetUpper(upper) // default = 150
                        .Build());
   for (const auto& pair : value_per_key_) {
     variance_algorithm->AddEntry(pair.second);
@@ -156,8 +156,8 @@ base::StatusOr<Output> Operator::PrivateStandardDeviation(double privacy_budget,
   ASSIGN_OR_RETURN(std::unique_ptr<BoundedStandardDeviation<double>> standard_deviation_algorithm,
                    BoundedStandardDeviation<double>::Builder()
                        .SetEpsilon(epsilon_)
-                       .SetLower(lower) // default = 0
-                       .SetUpper(upper) // default = 150
+                       //.SetLower(lower) // default = 0
+                       //.SetUpper(upper) // default = 150
                        .Build());
   for (const auto& pair : value_per_key_) {
     standard_deviation_algorithm->AddEntry(pair.second);
@@ -168,23 +168,17 @@ base::StatusOr<Output> Operator::PrivateStandardDeviation(double privacy_budget,
 base::StatusOr<Output> Operator::PrivateCount(double privacy_budget, double lower, double upper) {
   ASSIGN_OR_RETURN(std::unique_ptr<Count<std::string>> count_algorithm,
                    Count<std::string>::Builder().SetEpsilon(epsilon_).Build());
-  //Count count_algorithm;
-  //std::unique_ptr<Count<std::string>> count_algorithm;
-//  std::unique_ptr< Count<std::string> > count_algorithm;
   for (const auto& pair : value_per_key_) {
-    if (pair.second >= lower && pair.second <= upper) {
+    //if (pair.second >= lower && pair.second <= upper) {
       count_algorithm->AddEntry(pair.first);
-    }
+    //}
   }
   return count_algorithm->PartialResult(privacy_budget);
-
-    //base::StatusOr<Output> c;
-    //return c;
-}
+ }
 
 base::StatusOr<Output> Operator::PrivateMax(double privacy_budget, double lower, double upper) {
-  ASSIGN_OR_RETURN(std::unique_ptr<continuous::Max<double>> max_algorithm,
-                   continuous::Max<double>::Builder()
+  ASSIGN_OR_RETURN(std::unique_ptr<continuous::Max<int>> max_algorithm,
+                   continuous::Max<int>::Builder()
                        .SetEpsilon(epsilon_)
                        .SetLower(lower) // default = 0
                        .SetUpper(upper) // default = 150
@@ -196,8 +190,8 @@ base::StatusOr<Output> Operator::PrivateMax(double privacy_budget, double lower,
 }
 
 base::StatusOr<Output> Operator::PrivateMin(double privacy_budget, double lower, double upper) {
-  ASSIGN_OR_RETURN(std::unique_ptr<continuous::Min<double>> min_algorithm,
-                   continuous::Min<double>::Builder()
+  ASSIGN_OR_RETURN(std::unique_ptr<continuous::Min<int>> min_algorithm,
+                   continuous::Min<int>::Builder()
                        .SetEpsilon(epsilon_)
                        .SetLower(lower) // default = 0
                        .SetUpper(upper) // default = 150

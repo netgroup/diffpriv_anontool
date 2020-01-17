@@ -7,24 +7,29 @@ SYSTEM REQUIREMENTS:
 - OS:           Linux
 
 FILE REQUIREMENTS:
-- file extension MUST be .csv
-- each entry MUST have a UNIQUE ID (multiple occurences of the same ID are not allowed)
-- there MUST be AT LEAST a numeric column on which it is possible to compute queries
-- numeric values and bounds MUST be in range [-100000000, 100000000]
-An example can be found in "differential-privacy-master/differential-privacy/operations/data.csv"
+- file extension MUST be .csv,
+- each entry MUST have a UNIQUE ID (multiple occurences of the same ID are not allowed),
+- there MUST be AT LEAST a numeric column on which it is possible to compute queries,
+- numeric values MUST be in range [0, 150].
+An example can be found in "differential-privacy-master/differential-privacy/operations/data.csv".
 
 QUERIES REQUIREMENTS:
 - only SELECT queries are supported with single statistical operations. Allowed operations are the followings:
-    - COUNT
-    - SUM
-    - AVG
-    - VAR
-    - STDEV
-    - MAX
-    - MIN
-- only operations on a single column are permitted and the choosen column must contain only numbers
-- it is possible to set lower and upper bounds in WHERE clause
-Some examples can be found in "queries_examples.json"
+    - COUNT,
+    - SUM,
+    - AVG,
+    - VAR,
+    - STDEV,
+    - MAX,
+    - MIN,
+- only operations on a single column are permitted and the choosen column must contain only numbers,
+- queries CANNOT contain WHERE, HAVING, ORDER BY clauses.
+Some examples can be found in "queries_examples.json".
+
+WORKING FEATURES:
+- If you want to change the IP addresses or ports, you have to modify the file "docker-compose.yml".
+- In the file "Const.py" you can find all the system parameters, such as HTTP routes, etc.
+  [WARNING: Be careful when changing differential privacy parameters]
 
 
 ################ BUILD ################

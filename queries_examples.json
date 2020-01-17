@@ -47,7 +47,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"id_3\",\n    \"file\": \"data.csv\",\n    \"epsilon\": \"1\",\n    \"query\": \"SELECT sum(age) WHERE age > 10 AND age < 100\"\n}"
+					"raw": "{\n    \"id\": \"id_3\",\n    \"file\": \"data.csv\",\n    \"epsilon\": \"1\",\n    \"query\": \"SELECT sum(age)\"\n}"
 				},
 				"url": {
 					"raw": "localhost:5002/query",

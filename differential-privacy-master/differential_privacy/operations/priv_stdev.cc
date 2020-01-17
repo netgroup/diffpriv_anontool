@@ -73,13 +73,13 @@ int main(int argc, char **argv) {
     CHECK(absl::SimpleAtod(argv[4], &upper));
     Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
     // Create an object containing true and private standard deviantions
-    StatusOr<Output> stdev_status = op.PrivateStandardDeviation(budget, lower, upper);
+    StatusOr<Output> stdev_status = op.PrivateStandardDeviation(budget, 0, 150);
     if (!stdev_status.ok()) {
       return 1;
     }
     std::ofstream file("/tmp/result.csv");
     if (file.is_open()) {
-      std::string true_val = absl::StrFormat("%f", op.StandardDeviation(lower, upper));
+      std::string true_val = absl::StrFormat("%f", op.StandardDeviation(0, 150));
       std::string priv_val = absl::StrFormat("%f", GetValue<double>(stdev_status.ValueOrDie().elements(0).value()));
       Result res(true_val, priv_val);
       // Write true and private standard deviations on an output file

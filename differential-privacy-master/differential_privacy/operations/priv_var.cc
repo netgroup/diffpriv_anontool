@@ -73,13 +73,13 @@ int main(int argc, char **argv) {
     CHECK(absl::SimpleAtod(argv[4], &upper));
     Operator op(absl::GetFlag(FLAGS_DataFile), epsilon);
     // Create an object containing true and private variances
-    StatusOr<Output> var_status = op.PrivateVariance(budget, lower, upper);
+    StatusOr<Output> var_status = op.PrivateVariance(budget, 0, 150);
     if (!var_status.ok()) {
       return 1;
     }
     std::ofstream file("/tmp/result.csv");
     if (file.is_open()) {
-      std::string true_val = absl::StrFormat("%f", op.Variance(lower, upper));
+      std::string true_val = absl::StrFormat("%f", op.Variance(0, 150));
       std::string priv_val = absl::StrFormat("%f", GetValue<double>(var_status.ValueOrDie().elements(0).value()));
       Result res(true_val, priv_val);
       // Write true and private variances on an output file

@@ -1,10 +1,10 @@
 # BAZEL
 BAZEL_RUN = '/root/bin/bazel run'
-#BAZEL_RUN = 'bazel run'
+#BAZEL_RUN = 'bazel run' #ONLY FOR LOCAL USE
 
 # DIRECTORY PATHS
 ROOT_PATH = '/diffpriv/'
-#ROOT_PATH = './'
+#ROOT_PATH = './' #ONLY FOR LOCAL USE
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'
@@ -57,6 +57,7 @@ NO_BUDGET = ['[ERROR] This user has not enough remaining budget!', 500]
 NO_NUMERIC_QUERY = ['[ERROR] Given query is on non-numeric data!', 500]
 INVALID_OPERATION = ['[ERROR] Invalid operation!', 500]
 INVALID_BOUNDS = ['[ERROR] Invalid bounds!', 500]
+INVALID_COLUMN = ['[ERROR] Invalid column!', 500]
 NO_RESULT = ['[ERROR] Invalid operation result!', 500]
 NO_CSV_DIR = ['[ERROR] Directory of .csv files does not exist', 500]
 

@@ -75,8 +75,8 @@ int main(int argc, char **argv) {
     std::ofstream file("/tmp/result.csv");
     if (file.is_open()) {
       // Create an object containing true and private max values
-      std::string true_val = absl::StrFormat("%f", op.Max(lower, upper));
-      std::string priv_val = absl::StrFormat("%f", GetValue<int>(op.PrivateMax(budget, lower, upper).ValueOrDie().elements(0).value()));
+      std::string true_val = absl::StrFormat("%f", op.Max(0, 150));
+      std::string priv_val = absl::StrFormat("%f", GetValue<int>(op.PrivateMax(budget, 0, 150).ValueOrDie().elements(0).value()));
       Result res(true_val, priv_val);
       // Write true and private max values on an output file
       file << res;

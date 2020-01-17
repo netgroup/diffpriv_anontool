@@ -33,8 +33,8 @@ TEST(OperatorTest, TrueStatistics) {
   Operator op(kDatafile, 1);
   EXPECT_EQ(op.Mean(0, std::numeric_limits<double>::max()),
             op.Sum(0, std::numeric_limits<double>::max()) / op.BoundCount(0, std::numeric_limits<double>::max()));
-  EXPECT_EQ(op.Max(0, std::numeric_limits<double>::max()), 100);
-  EXPECT_EQ(op.Min(0, std::numeric_limits<double>::max()), 0);
+  EXPECT_EQ(op.Max(0, std::numeric_limits<int>::max()), 100);
+  EXPECT_EQ(op.Min(0, std::numeric_limits<int>::max()), 0);
   EXPECT_EQ(op.Variance(0, std::numeric_limits<double>::max()),
             op.StandardDeviation(0, std::numeric_limits<double>::max()) *
             op.StandardDeviation(0, std::numeric_limits<double>::max()));
@@ -44,9 +44,9 @@ TEST(OperatorTest, TooLittleBudget) {
   Operator op(kDatafile, 1);
   EXPECT_EQ(op.PrivateCount(2, 0, std::numeric_limits<double>::max()).status().code(),
             base::StatusCode::kInvalidArgument);
-  EXPECT_EQ(op.PrivateMax(2, 0, std::numeric_limits<double>::max()).status().code(),
+  EXPECT_EQ(op.PrivateMax(2, 0, std::numeric_limits<int>::max()).status().code(),
             base::StatusCode::kInvalidArgument);
-  EXPECT_EQ(op.PrivateMin(2, 0, std::numeric_limits<double>::max()).status().code(),
+  EXPECT_EQ(op.PrivateMin(2, 0, std::numeric_limits<int>::max()).status().code(),
             base::StatusCode::kInvalidArgument);
   EXPECT_EQ(op.PrivateMean(2, 0, std::numeric_limits<double>::max()).status().code(),
             base::StatusCode::kInvalidArgument);
@@ -61,9 +61,9 @@ TEST(OperatorTest, TooLittleBudget) {
 TEST(OperatorTest, PrivacyBudget) {
   Operator op(kDatafile, 1);
   EXPECT_EQ(op.PrivacyBudget(), 1.0);
-  EXPECT_OK(op.PrivateMax(.2, 0, std::numeric_limits<double>::max()));
+  EXPECT_OK(op.PrivateMax(.2, 0, std::numeric_limits<int>::max()));
   EXPECT_EQ(op.PrivacyBudget(), .8);
-  EXPECT_OK(op.PrivateMax(.8, 0, std::numeric_limits<double>::max()));
+  EXPECT_OK(op.PrivateMax(.8, 0, std::numeric_limits<int>::max()));
   EXPECT_EQ(op.PrivacyBudget(), 0.0);
 }
 

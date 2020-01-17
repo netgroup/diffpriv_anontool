@@ -15,7 +15,7 @@ COPY ./CSVHandler.py /diffpriv
 COPY ./DiffPrivServer.py /diffpriv
 COPY ./FuncUtils.py /diffpriv
 COPY ./QueryHandler.py /diffpriv
-COPY ./README.txt /diffpriv
+COPY ./README.md /diffpriv
 COPY ./requirements.txt /diffpriv
 
 # Change diretory
