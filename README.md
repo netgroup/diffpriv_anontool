@@ -1,3 +1,14 @@
+INTRODUCTION
+In database systems one of the possible solutions to protect our data is to anonymize it; but performing a proper 
+anonymization is a really complex process. The majority of existing solutions uses the common techniques to "sanitize" 
+the data: detecting identifiers and quasi-identifiers, properly aggregating and/or removing them. These solutions do not 
+guarantee complete anonymization, so they cannot be the best choise.
+Recently, a new mechanism to anonymize data, the "Differential Privacy", has becoming the dominant way to perform 
+data anonymization, because it provides a quantified privacy level with a rigorous mathematical foundation.
+Our tool is based on this technique. With this tool we target to simplify the technical details and provide an 
+easy-to-use and easy-to-deploy system to anonymously release your data.
+
+DESCRIPTION
 This project implements a Web service to provide anonymized queries on statistical data. In particular, when deployed,
 through HTTP requests, it allows to upload files on which users can make queries. It provides a Web interface to make
 use of Google C++ library "differential-privacy" (https://github.com/google/differential-privacy).
