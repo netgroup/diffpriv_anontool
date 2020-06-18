@@ -2,4 +2,4 @@ Flask
 numpy
 pandas
 pyparsing
-flask_restplus
+flask_restx

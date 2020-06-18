@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask, render_template, request
-from flask_restplus import Resource, Api
+from flask_restx import Resource, Api
 
 import Const
 import CSVHandler as csvh
