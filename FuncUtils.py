@@ -34,8 +34,8 @@ def has_numeric_columns(file_name):
 # Check if IP address is valid
 def is_valid_ip(ip):
     try:
-        res = (ip.count('.') == 3 or ip.count('.') == 5) and all(0 <= int(num) < 256 for num in ip.rstrip().split('.')) \
-              or ip == 'localhost'
+        res = (ip.count('.') == 3 or ip.count('.') == 5) and \
+              all(0 <= int(num) < 256 for num in ip.rstrip().split('.')) or ip == 'localhost'
         return res
     except ValueError:
         return False

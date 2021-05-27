@@ -9,9 +9,9 @@ import subprocess
 def exec_query_operation(operation, epsilon, budget, lower, upper):
     os.chdir(Const.ROOT_PATH + Const.DIFF_PRIV_MASTER_PATH)
     try:
-        subprocess.check_output(['%s %s%s:priv_%s -- %f %f %f %f' % (Const.BAZEL_RUN, Const.DIFF_PRIV_PATH,
-                                                                     Const.OPERATIONS_PATH, operation, epsilon, budget,
-                                                                     lower, upper)], shell=True, stderr=subprocess.STDOUT)
+        subprocess.check_output(['%s %s%s:priv_%s -- %f %f %f %f'
+                                 % (Const.BAZEL_RUN, Const.DIFF_PRIV_PATH, Const.OPERATIONS_PATH, operation, epsilon,
+                                    budget, lower, upper)], shell=True, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
         # Execution failed
         os.chdir(Const.PARENT_DIR)

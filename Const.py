@@ -1,10 +1,10 @@
 # BAZEL
 BAZEL_RUN = '/root/bin/bazel run'
-#BAZEL_RUN = 'bazel run' #ONLY FOR LOCAL USE
+# BAZEL_RUN = 'bazel run' #ONLY FOR LOCAL USE
 
 # DIRECTORY PATHS
 ROOT_PATH = '/diffpriv/'
-#ROOT_PATH = './' #ONLY FOR LOCAL USE
+# ROOT_PATH = './' #ONLY FOR LOCAL USE
 PARENT_DIR = '../'
 FLASK_ROOT_PATH = 'web/'
 CSV_FILES_PATH = 'csv_files/'
